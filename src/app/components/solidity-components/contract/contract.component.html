@@ -1,0 +1,46 @@
+<mat-accordion (click)="changeContext($event)" cdkDrag>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header cdkDragHandle>
+            <mat-panel-title>
+                <mat-form-field>
+                    <mat-label>Contract Name...</mat-label>
+                    <input matInput type="text" [(ngModel)]="item.identifier" (change)="updateItem()">
+                </mat-form-field>
+            </mat-panel-title>
+
+            <mat-panel-description>
+                <mat-checkbox [(ngModel)]="item.abstract" (ngModelChange)="updateItem()">Abstract?</mat-checkbox>
+                <div>
+                    <a (click)="updateItem()">
+                        <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
+                    </a>
+                    <a (click)="deleteItem()">
+                        <mat-icon color="warn" matTooltip="Delete item...">delete_forever</mat-icon>
+                    </a>
+                </div>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="content"
+            id={{item.uuid}}
+            cdkDropList
+            [cdkDropListData]="item.elements || []"
+            cdkDropListConnectedTo={{item.uuid}}
+            (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let i of item.elements" cdkDrag>
+                <app-constructor *ngIf="i.name == 'Constructor'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-constructor>
+                <app-enum *ngIf="i.name == 'Enum'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-enum>
+                <app-error *ngIf="i.name == 'Error'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-error>
+                <app-event *ngIf="i.name == 'Event'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-event>
+                <app-fallback *ngIf="i.name == 'Fallback'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-fallback>
+                <app-function *ngIf="i.name == 'Function'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-function>
+                <app-modifier *ngIf="i.name == 'Modifier'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-modifier>
+                <app-receive *ngIf="i.name == 'Receive'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-receive>
+                <app-struct *ngIf="i.name == 'Struct'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-struct>
+                <app-user-defined-value-type *ngIf="i.name == 'UserDefinedValueType'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-user-defined-value-type>
+                <app-using *ngIf="i.name == 'Using'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-using>
+                <app-variable *ngIf="i.name == 'Variable'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-variable>
+                <app-comment *ngIf="i.name == 'Comment'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-comment>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

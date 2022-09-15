@@ -1,0 +1,15 @@
+<div class="content" cdkDrag>
+    <mat-form-field>
+        <mat-label>{{item.name}}...</mat-label>
+        <input matInput type="text" [(ngModel)]="item.text" (change)="updateItem()">
+    </mat-form-field>
+    <div>
+        <a (click)="updateItem()">
+            <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
+        </a>
+    
+        <a (click)="deleteItem()">
+            <mat-icon color="warn" matTooltip="Delete item...">delete_forever</mat-icon>
+        </a>
+    </div>
+</div>

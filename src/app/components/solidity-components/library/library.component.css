@@ -1,0 +1,26 @@
+mat-expansion-panel-header {
+    height: 38px;
+    border: 1px solid purple;
+}
+
+mat-panel-description {
+    justify-content: space-between;
+    align-items: center;
+}
+
+mat-panel-description div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+    margin-top: 10px;
+    min-height: 120px;
+    background-color: rgba(211, 211, 211, 0.3);
+    border-radius: 5px;
+}

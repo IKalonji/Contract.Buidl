@@ -1,0 +1,55 @@
+<div class="container">
+    <div class="col-left draggable-option"
+        id="options"
+        cdkDropList
+        [cdkDropListData]="options"
+        [cdkDropListConnectedTo]="geItemsIds()"
+        (cdkDropListDropped)="drop($event)">
+        <div class="my-5" *ngFor="let option of options" cdkDrag>
+            <div class="col" cdkDragHandle>
+                <mat-icon>more_vert</mat-icon>
+                <mat-label>{{splitStringByCaps(option.name)}}</mat-label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-right draggable-option"
+        id="selected"
+        cdkDropList
+        [cdkDropListData]="items"
+        cdkDropListConnectedTo="selected"
+        (cdkDropListDropped)="drop($event)" (click)="changeContext(defaultItem)">
+        <div class="my-5" *ngFor="let item of items">
+            <div *ngIf="item.name == 'License'">
+                <app-license (deleteItemEvent)="deleteItem($event)" (updateItemEvent)="updateItem($event)" [item]="item"></app-license>
+            </div>
+            <div *ngIf="item.name == 'Version'">
+                <app-version (deleteItemEvent)="deleteItem($event)" (updateItemEvent)="updateItem($event)" [item]="item"></app-version>
+            </div>
+            <div *ngIf="item.name == 'Contract'">
+                <app-contract (changeContextEvent)="changeContext($event)" (deleteItemEvent)="deleteItem($event)" (updateItemEvent)="updateItem($event)" [item]="item"></app-contract>
+            </div>
+            <div *ngIf="item.name == 'Import'">
+                <app-import (deleteItemEvent)="deleteItem($event)" (updateItemEvent)="updateItem($event)" [item]="item"></app-import>
+            </div>
+            <div *ngIf="item.name == 'Constant'">
+                <app-constant (deleteItemEvent)="deleteItem($event)" (updateItemEvent)="updateItem($event)" [item]="item"></app-constant>
+            </div>
+            <div *ngIf="item.name == 'Comment'">
+                <app-comment (deleteItemEvent)="deleteItem($event)" (updateItemEvent)="updateItem($event)" [item]="item"></app-comment>
+            </div>
+            <div *ngIf="item.name == 'Pragma'">
+                <app-pragma (deleteItemEvent)="deleteItem($event)" (updateItemEvent)="updateItem($event)" [item]="item"></app-pragma>
+            </div>
+            <div *ngIf="item.name == 'ABICoderPragma'">
+                <app-abi-coder-pragma (deleteItemEvent)="deleteItem($event)" (updateItemEvent)="updateItem($event)" [item]="item"></app-abi-coder-pragma>
+            </div>
+            <div *ngIf="item.name == 'Library'">
+                <app-library (deleteItemEvent)="deleteItem($event)" (updateItemEvent)="updateItem($event)" [item]="item"></app-library>
+            </div>
+            <div *ngIf="item.name == 'Interface'">
+                <app-interface (deleteItemEvent)="deleteItem($event)" (updateItemEvent)="updateItem($event)" [item]="item"></app-interface>
+            </div>
+        </div>
+    </div>
+</div>

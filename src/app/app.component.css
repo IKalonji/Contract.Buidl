@@ -1,0 +1,42 @@
+.toolbar-fixed {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.toolbar-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+.drawer-container {
+    position: absolute;
+    top: 60px;
+    width: 100%;
+    bottom: 0;
+
+}
+
+mat-drawer-content {
+    padding: 2px;
+}
+
+mat-drawer {
+    width: 250px;
+    padding: 10px;
+}
+
+mat-drawer a {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid gray;
+}
+
+.toobar-spacer {
+    flex: 1 1 auto;
+}

@@ -1,0 +1,22 @@
+<div class="content" cdkDrag>
+    <div>
+        <mat-form-field>
+            <mat-label>Minimun Version...</mat-label>
+            <input matInput type="text" [(ngModel)]="item.minimum" (change)="updateItem()">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Maximun Version (optioal)...</mat-label>
+            <input matInput type="text" [(ngModel)]="item.maximum" (change)="updateItem()">
+        </mat-form-field>
+    </div>
+    
+    <div class="col">
+        <a (click)="updateItem()">
+            <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
+        </a>
+        <a (click)="deleteItem()">
+            <mat-icon color="warn" matTooltip="Delete item...">delete_forever</mat-icon>
+        </a>
+    </div>
+</div>

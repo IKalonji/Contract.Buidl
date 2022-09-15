@@ -1,0 +1,24 @@
+<mat-accordion cdkDrag>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header cdkDragHandle>
+            <mat-panel-title>{{item.name}}</mat-panel-title>
+            <mat-panel-description>
+                <div></div>
+                <div>
+                    <a (click)="updateItem()">
+                        <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
+                    </a>
+                    <a (click)="deleteItem()">
+                        <mat-icon color="warn" matTooltip="Delete item...">delete_forever</mat-icon>
+                    </a>
+                </div>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="content">
+            <div>{{item.uuid}}</div>
+            <div>{{item.uuid}}</div>
+            <div>{{item.uuid}}</div>
+            <div>{{item.uuid}}</div>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>
