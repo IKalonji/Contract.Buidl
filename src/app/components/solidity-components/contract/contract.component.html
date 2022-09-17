@@ -1,4 +1,4 @@
-<mat-accordion (click)="changeContext($event)" cdkDrag>
+<mat-accordion (click)="sendContext($event)" cdkDrag>
     <mat-expansion-panel>
         <mat-expansion-panel-header cdkDragHandle>
             <mat-panel-title>
@@ -26,8 +26,8 @@
             [cdkDropListData]="item.elements || []"
             cdkDropListConnectedTo={{item.uuid}}
             (cdkDropListDropped)="drop($event)">
-            <div *ngFor="let i of item.elements" cdkDrag>
-                <app-constructor *ngIf="i.name == 'Constructor'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-constructor>
+            <div *ngFor="let i of item.elements">
+                <app-constructor *ngIf="i.name == 'Constructor'" (changeContextEvent)="changeContext($event)" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-constructor>
                 <app-enum *ngIf="i.name == 'Enum'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-enum>
                 <app-error *ngIf="i.name == 'Error'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-error>
                 <app-event *ngIf="i.name == 'Event'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-event>
@@ -38,7 +38,7 @@
                 <app-struct *ngIf="i.name == 'Struct'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-struct>
                 <app-user-defined-value-type *ngIf="i.name == 'UserDefinedValueType'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-user-defined-value-type>
                 <app-using *ngIf="i.name == 'Using'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-using>
-                <app-variable *ngIf="i.name == 'Variable'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-variable>
+                <app-state-variable *ngIf="i.name == 'StateVariable'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-state-variable>
                 <app-comment *ngIf="i.name == 'Comment'" (deleteItemEvent)="deleteSubItem($event)" (updateItemEvent)="updateSubItem($event)" [item]="i"></app-comment>
             </div>
         </div>

@@ -1,5 +1,6 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Constructor } from 'src/app/grammer/source-unit';
+import { BaseItem, Constructor, Parameter } from 'src/app/grammer/source-unit';
 
 @Component({
   selector: 'app-constructor',
@@ -18,13 +19,29 @@ export class ConstructorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  changeContext(event:any) {
+  drop(event: CdkDragDrop<BaseItem[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      switch(event.previousContainer.data[event.previousIndex].name) {
+        case "Parameter":
+          this.item.parameters?.push(new Parameter());
+          break;
+      }
+    }
+  }
+
+  sendContext(event:any) {
     event.stopPropagation();
     this.changeContextEvent.emit(this.item);;
   }
 
   deleteItem() {
     this.deleteItemEvent.emit(this.item);
+  }
+
+  updateItem() {
+    this.updateItemEvent.emit(this.item);
   }
 
 }

@@ -32,7 +32,7 @@ import { AbiCoderPragmaComponent } from './components/solidity-components/abi-co
 import { LibraryComponent } from './components/solidity-components/library/library.component';
 import { InterfaceComponent } from './components/solidity-components/interface/interface.component';
 import { StopClickPropagationDirective } from './directives/stop-click-propagation.directive';
-import { VariableComponent } from './components/contract-body-components/variable/variable.component';
+import { StateVariableComponent } from './components/contract-body-components/state-variable/state-variable.component';
 import { ConstructorComponent } from './components/contract-body-components/constructor/constructor.component';
 import { StructComponent } from './components/contract-body-components/struct/struct.component';
 import { EnumComponent } from './components/contract-body-components/enum/enum.component';
@@ -44,6 +44,7 @@ import { UserDefinedValueTypeComponent } from './components/contract-body-compon
 import { EventComponent } from './components/contract-body-components/event/event.component';
 import { ErrorComponent } from './components/contract-body-components/error/error.component';
 import { UsingComponent } from './components/contract-body-components/using/using.component';
+import { ParameterComponent } from './components/shared-components/parameter/parameter.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,7 @@ import { UsingComponent } from './components/contract-body-components/using/usin
     LibraryComponent,
     InterfaceComponent,
     StopClickPropagationDirective,
-    VariableComponent,
+    StateVariableComponent,
     ConstructorComponent,
     StructComponent,
     EnumComponent,
@@ -71,7 +72,8 @@ import { UsingComponent } from './components/contract-body-components/using/usin
     UserDefinedValueTypeComponent,
     EventComponent,
     ErrorComponent,
-    UsingComponent
+    UsingComponent,
+    ParameterComponent
   ],
   imports: [
     BrowserModule,

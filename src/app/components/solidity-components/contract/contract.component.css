@@ -19,9 +19,8 @@ mat-panel-description div {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    padding: 5px;
+    padding: 5px 5px 60px 5px;
     margin-top: 10px;
-    min-height: 120px;
     background-color: rgba(211, 211, 211, 0.3);
     border-radius: 5px;
 }

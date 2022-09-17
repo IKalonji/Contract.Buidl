@@ -27,4 +27,8 @@ export class FallbackComponent implements OnInit {
     this.deleteItemEvent.emit(this.item);
   }
 
+  updateItem() {
+    this.updateItemEvent.emit(this.item);
+  }
+
 }

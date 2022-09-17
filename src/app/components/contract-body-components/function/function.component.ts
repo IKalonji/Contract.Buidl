@@ -27,4 +27,8 @@ export class FunctionComponent implements OnInit {
     this.deleteItemEvent.emit(this.item);
   }
 
+  updateItem() {
+    this.updateItemEvent.emit(this.item);
+  }
+
 }

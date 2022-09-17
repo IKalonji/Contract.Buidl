@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { BaseItem, License, Pragma, Comment, Version, ABICoderPragma, Import, 
-  Constant, Contract, Interface, Library,  } 
+  Constant, Contract, Interface, Library, Constructor,  } 
   from "../../grammer/source-unit";
-import { FileItems, ContractItems } from 'src/app/constants/solidity-syntax';
+import { FileItems, ContractItems, ConstructorItems } from 'src/app/constants/solidity-syntax';
 
 @Component({
   selector: 'app-create-solidity-file',
@@ -16,6 +16,7 @@ export class CreateSolidityFileComponent implements OnInit {
 
   fileItems = FileItems;
   contractItems = ContractItems;
+  constructorItems = ConstructorItems;
 
   options: any[] = [];
   fileData: BaseItem[] = [];
@@ -77,12 +78,14 @@ export class CreateSolidityFileComponent implements OnInit {
     switch(item.name) {
       case "Contract":
         this.options = this.contractItems;
-      break;
+        break;
+      case "Constructor":
+        this.options = this.constructorItems;
+        break;
       default: {
         this.options = this.fileItems;
       }
     }
-    console.log(item);
   }
 
   updateItem(item: BaseItem) {
@@ -102,7 +105,11 @@ export class CreateSolidityFileComponent implements OnInit {
 
   geItemsIds() {
     let ids = this.items.filter(i => i.name == "Contract").map(c => c.uuid);
+    let constructorIds = (this.items.filter(i => i.name == "Contract") as Contract[]).map(
+      c => c.elements).filter(e => e?.filter(b => b.name == "Constructor")).map(
+        o => o ? (o[0] ? o[0].uuid : "") : "");
     ids.push("selected");
+    ids = ids.concat(constructorIds);
     return ids;
   }
 

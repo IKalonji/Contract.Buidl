@@ -1,7 +1,6 @@
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BaseItem, Comment, Constructor, Contract, Enum, Error, Event, Fallback, Function, Modifier, Receive, Struct, UserDefinedValueType, Using, Variable } from 'src/app/grammer/source-unit';
-import { v4 as uuid } from 'uuid';
+import { BaseItem, Comment, Constructor, Contract, Enum, Error, Event, Fallback, Function, Modifier, Receive, StateVariable, Struct, UserDefinedValueType, Using, Variable } from 'src/app/grammer/source-unit';
 
 @Component({
   selector: 'app-contract',
@@ -25,8 +24,8 @@ export class ContractComponent implements OnInit {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       switch(event.previousContainer.data[event.previousIndex].name) {
-        case "Variable":
-          this.item.elements?.push(new Variable());
+        case "StateVariable":
+          this.item.elements?.push(new StateVariable());
           break;
         case "Comment":
           this.item.elements?.push(new Comment());
@@ -70,9 +69,13 @@ export class ContractComponent implements OnInit {
     }
   }
 
-  changeContext(event:any) {
+  sendContext(event:any) {
     event.stopPropagation();
-    this.changeContextEvent.emit(this.item);;
+    this.changeContextEvent.emit(this.item);
+  }
+
+  changeContext(item: BaseItem) {
+    this.changeContextEvent.emit(item);
   }
 
   deleteItem() {

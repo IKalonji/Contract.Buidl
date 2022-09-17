@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="content" cdkDrag>
+        <div>
+            <mat-form-field>
+                <mat-label>State Variable Type</mat-label>
+                <input matInput type="text" [(ngModel)]="item.type" (change)="updateItem()">
+            </mat-form-field>
+    
+            <mat-form-field>
+                <mat-label>State Variable Name</mat-label>
+                <input matInput type="text" [(ngModel)]="item.identifier" (change)="updateItem()">
+            </mat-form-field>
+        </div>
+        
+        <div class="col">
+            <a (click)="updateItem()">
+                <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
+            </a>
+            <a (click)="deleteItem()">
+                <mat-icon color="warn" matTooltip="Delete item...">delete_forever</mat-icon>
+            </a>
+        </div>
+    </div>
+    
+    <div class="content">
+        <div>
+            
+            <mat-form-field>
+                <mat-label>State Variable Visibility (optional)</mat-label>
+                <input matInput type="text" [(ngModel)]="item.visibility" (change)="updateItem()">
+            </mat-form-field>
+            
+            <mat-form-field>
+                <mat-label>State Variable Modifier (optional)</mat-label>
+                <input matInput type="text" [(ngModel)]="item.modifier" (change)="updateItem()">
+            </mat-form-field>
+    
+            <mat-form-field>
+                <mat-label>State Variable Value (optional)</mat-label>
+                <input matInput type="text" [(ngModel)]="item.value" (change)="updateItem()">
+            </mat-form-field>
+        </div>
+    </div>
+</div>

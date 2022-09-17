@@ -27,4 +27,8 @@ export class EnumComponent implements OnInit {
     this.deleteItemEvent.emit(this.item);
   }
 
+  updateItem() {
+    this.updateItemEvent.emit(this.item);
+  }
+
 }

@@ -1,0 +1,32 @@
+.row {
+    border: 1px solid purple;
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 10px 0 24px;
+}
+
+.content:hover {
+    background-color: #fafafaec;
+}
+
+.content div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.content .col {
+    margin-top: 5px;
+}
+
+mat-form-field {
+    height: 36px;
+}

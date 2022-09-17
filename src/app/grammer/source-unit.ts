@@ -164,7 +164,7 @@ class Contract extends BaseItem {
             }
             this.output += "{\n";
             this.elements?.forEach(e => this.output += `${e.generateStatement()}\n\n`)
-            this.output += "\n}";
+            this.output += "\n}\n\n";
         }
         return this.output;
     }
@@ -218,6 +218,8 @@ class Constructor extends BaseItem {
 
     parameters?: Parameter[] = [];
     payable?: boolean = false;
+    internal?: boolean = false;
+    public?: boolean = false;
     block?: Block = new Block()
 
     constructor() {
@@ -227,10 +229,9 @@ class Constructor extends BaseItem {
     override generateStatement(): string {
         let paramList = this.parameters?.map(p => p.generateStatement());
         let paramListString = paramList?.join(", ");
-        this.output = `constructor (${paramListString}) `;
-        if(this.payable) {
-            this.output += "payable ";
-        }
+        
+        this.output = `constructor (${paramListString}) ${this.payable ? "payable" : ""} ${
+            this.internal ? "internal" : ""} ${this.public ? "public" : ""}`;
         this.output += this.block?.generateStatement();
         return this.output;
     }
@@ -284,18 +285,18 @@ class Variable extends BaseItem {
 
 class StateVariable extends BaseItem {
     type?: string = "";
-    visibity?: string = "";
+    visibility?: string = "";
     modifier?: string = "";
     identifier?: string = "";
     value?: string = "";
 
     constructor() {
-        super("Variable");
+        super("StateVariable");
     }
 
     override generateStatement(): string {
         if(this.type && this.identifier) {
-            this.output = [this.type, this.visibity, this.modifier, this.identifier].join(" ");
+            this.output = [this.type, this.visibility, this.modifier, this.identifier].join(" ");
             
             if(this.value) {
                 this.output += ` = ${this.value};`;
@@ -303,18 +304,6 @@ class StateVariable extends BaseItem {
                 this.output += ";";
             }
         }
-        return this.output
-    }
-}
-
-class Block extends BaseItem {
-
-    constructor() {
-        super("Block");
-    }
-
-    override generateStatement(): string {
-        this.output = " {\nBlock code comes here... \n}";
         return this.output
     }
 }
@@ -368,6 +357,9 @@ class Struct extends BaseItem {
 // To Be Implemented
 class Function extends BaseItem {
     identifier?: string = "";
+    fallback?: boolean = false;
+    receive?: boolean = false;
+    parameters?: Parameter[] = [];
 
     constructor() {
         super("Function");
@@ -417,54 +409,136 @@ class Receive extends BaseItem {
     }
 }
 
-// To Be Implemented
+class EventParameter extends BaseItem {
+    identifier?: string = "";
+    type?: string = "";
+    indexed?: boolean = false;
+
+    constructor() {
+        super("EventParameter");
+    }
+
+    override generateStatement(): string {
+        if(this.type) {
+            this.output = this.type;
+            if(this.indexed) {
+                this.output += " indexed";
+            }
+            if(this.identifier) {
+                this.output += ` ${this.identifier}`;
+            }
+        }
+        return this.output
+    }
+}
+
 class Event extends BaseItem {
     identifier?: string = "";
+    parameters?: EventParameter[] = [];
+    anonymous?: boolean = false;
 
     constructor() {
         super("Event");
     }
 
     override generateStatement(): string {
+        if(this.identifier) {
+            this.output = `event ${this.identifier} (${this.parameters?.join(", ")})`;
+            if(this.anonymous) {
+                this.output += ` ${this.anonymous}`;
+            }
+            this.output += ";";
+        }
         return this.output
     }
 }
 
-// To Be Implemented
-class Error extends BaseItem {
+class ErrorParameter extends BaseItem {
     identifier?: string = "";
+    type?: string = "";
 
     constructor() {
         super("Error");
     }
 
     override generateStatement(): string {
+        if(this.type) {
+            [this.type, this.identifier].filter(Boolean).join(" ");
+        }
         return this.output
     }
 }
 
-// To Be Implemented
-class Using extends BaseItem {
+class Error extends BaseItem {
     identifier?: string = "";
+    parameters?: ErrorParameter[] = [];
+
+    constructor() {
+        super("Error");
+    }
+
+    override generateStatement(): string {
+        if(this.identifier) {
+            this.output = `error ${this.identifier} (${this.parameters?.join(", ")});`
+        }
+        return this.output
+    }
+}
+
+class Using extends BaseItem {
+    identifiers?: string[] = [];
+    type?: string = "";
+    global?: boolean = false;
 
     constructor() {
         super("Using");
     }
 
     override generateStatement(): string {
+        if(this.type && this.identifiers && this.identifiers.length > 0) {
+            if(this.identifiers?.length == 1) {
+                this.output = `using ${this.identifiers[0]} for ${this.type} `;
+            }
+
+            if(this.identifiers?.length > 1) {
+                this.output = `using { ${this.identifiers.join(", ")} } for ${this.type} `;
+            }
+
+            if(this.global) {
+                this.output += "global";
+            }
+
+            this.output += ";";
+        }
         return this.output
     }
 }
 
-// To Be Implemented
 class UserDefinedValueType extends BaseItem {
     identifier?: string = "";
+    type?: string = "";
 
     constructor() {
         super("UserDefinedValueType");
     }
 
     override generateStatement(): string {
+        if(this.identifier && this.type) {
+            this.output = ["type", this.identifier, "is", this.type].join(" ") + ";";
+        }
+        return this.output
+    }
+}
+
+// To Be Implemented
+class Block extends BaseItem {
+
+    constructor() {
+        super("Block");
+    }
+
+    override generateStatement(): string {
+        this.output = " {\nBlock code comes here... \n}";
         return this.output
     }
 }
@@ -473,5 +547,5 @@ export {
     BaseItem, License, Pragma, Comment, Constant, Version, ABICoderPragma, Variable, Error,
     Import, Contract, Interface, Library, Parameter, Block, Constructor, Modifier, Using,
     StructMember, Struct, Enum, StateVariable, Function, Fallback, Receive, Event,
-    UserDefinedValueType
+    UserDefinedValueType, EventParameter, ErrorParameter
 }
