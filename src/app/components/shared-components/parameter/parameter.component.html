@@ -1,1 +1,27 @@
-<p>parameter works!</p>
+<div class="content" cdkDrag>
+    <div class="row">
+        <mat-form-field>
+            <mat-label>Parameter Type</mat-label>
+            <input matInput type="text" [(ngModel)]="item.type">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Data Location (optional)</mat-label>
+            <input matInput type="text" [(ngModel)]="item.location">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Parameter Identifier (optional)</mat-label>
+            <input matInput type="text" [(ngModel)]="item.identifier">
+        </mat-form-field>
+    </div>
+    
+    <div class="col">
+        <a (click)="updateItem()">
+            <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
+        </a>
+        <a (click)="deleteItem()">
+            <mat-icon color="warn" matTooltip="Delete item...">clear</mat-icon>
+        </a>
+    </div>
+</div>

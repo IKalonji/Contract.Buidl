@@ -10,17 +10,13 @@ export class EnumComponent implements OnInit {
 
   @Output() deleteItemEvent = new EventEmitter<Enum>();
   @Output() updateItemEvent = new EventEmitter<Enum>();
-  @Output() changeContextEvent = new EventEmitter<Enum>();
   @Input() item!: Enum;
+
+  newValue: string = "";
 
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  changeContext(event:any) {
-    event.stopPropagation();
-    this.changeContextEvent.emit(this.item);;
   }
 
   deleteItem() {
@@ -29,6 +25,26 @@ export class EnumComponent implements OnInit {
 
   updateItem() {
     this.updateItemEvent.emit(this.item);
+  }
+
+  addEnum() {
+    if(this.newValue) {
+      if(!this.item.values?.find(i => i.toLocaleLowerCase() == this.newValue.toLocaleLowerCase())) {
+        this.item.values?.push(this.newValue);
+        this.newValue = "";
+      }
+    }
+    this.updateItem();
+  }
+
+  removeEnum(value: string) {
+    if(this.item.values) {
+      let index = this.item.values?.findIndex(i => i == value);
+      if(index > -1) {
+        this.item.values.splice(index, 1);
+      }
+    }
+    this.updateItem();
   }
 
 }

@@ -4,6 +4,7 @@ import { BaseItem, License, Pragma, Comment, Version, ABICoderPragma, Import,
   Constant, Contract, Interface, Library, Constructor,  } 
   from "../../grammer/source-unit";
 import { FileItems, ContractItems, ConstructorItems } from 'src/app/constants/solidity-syntax';
+//const fs = require('fs');
 
 @Component({
   selector: 'app-create-solidity-file',
@@ -93,7 +94,6 @@ export class CreateSolidityFileComponent implements OnInit {
     if(index > -1) {
       this.items[index] = item;
     }
-    console.log(item.generateStatement());
   }
 
   deleteItem(item: any) {
@@ -111,6 +111,17 @@ export class CreateSolidityFileComponent implements OnInit {
     ids.push("selected");
     ids = ids.concat(constructorIds);
     return ids;
+  }
+
+  previewFile() {
+    let output = "";
+    this.items.forEach(i => output += `\n${i.generateStatement()}`);
+    /*fs.writeFileSync("output.sol", output, function(err: any) {
+      if(err) {
+        console.log("Error Occurred!");
+      }
+    })*/
+    console.log(output);
   }
 
   splitStringByCaps(text: string): string {

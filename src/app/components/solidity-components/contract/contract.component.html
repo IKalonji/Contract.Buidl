@@ -1,21 +1,21 @@
 <mat-accordion (click)="sendContext($event)" cdkDrag>
     <mat-expansion-panel>
         <mat-expansion-panel-header cdkDragHandle>
-            <mat-panel-title>
+            <mat-panel-title (click)="$event.stopPropagation();">
                 <mat-form-field>
                     <mat-label>Contract Name...</mat-label>
-                    <input matInput type="text" [(ngModel)]="item.identifier" (change)="updateItem()">
+                    <input matInput type="text" [(ngModel)]="item.identifier">
                 </mat-form-field>
             </mat-panel-title>
 
-            <mat-panel-description>
-                <mat-checkbox [(ngModel)]="item.abstract" (ngModelChange)="updateItem()">Abstract?</mat-checkbox>
+            <mat-panel-description (click)="$event.stopPropagation();">
+                <mat-checkbox [(ngModel)]="item.abstract">Abstract</mat-checkbox>
                 <div>
                     <a (click)="updateItem()">
                         <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
                     </a>
                     <a (click)="deleteItem()">
-                        <mat-icon color="warn" matTooltip="Delete item...">delete_forever</mat-icon>
+                        <mat-icon color="warn" matTooltip="Delete item...">clear</mat-icon>
                     </a>
                 </div>
             </mat-panel-description>

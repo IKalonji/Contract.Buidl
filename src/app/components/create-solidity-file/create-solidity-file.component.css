@@ -68,3 +68,9 @@
 a {
     cursor: pointer;
 }
+
+.btn-preview {
+    position: absolute;
+    bottom: 15px;
+    right: 10px;
+}

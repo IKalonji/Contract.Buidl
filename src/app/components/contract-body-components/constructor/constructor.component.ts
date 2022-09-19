@@ -44,4 +44,28 @@ export class ConstructorComponent implements OnInit {
     this.updateItemEvent.emit(this.item);
   }
 
+  addParameter() {
+    this.item.parameters?.push(new Parameter());
+  }
+
+  deleteParameter(param: Parameter) {
+    if(this.item.parameters) {
+      let index = this.item.parameters?.findIndex(p => p.uuid == param.uuid);
+      if(index > -1) {
+        this.item.parameters?.splice(index, 1);
+      }
+    }
+  }
+
+  updateParameter(param: Parameter) {
+    let index = this.item.parameters?.findIndex(p => p.uuid == param.uuid);
+
+    if(this.item.parameters) {
+      if(index && index > -1) {
+        this.item.parameters[index] = param;
+      }
+    }
+    this.updateItem();
+  }
+
 }

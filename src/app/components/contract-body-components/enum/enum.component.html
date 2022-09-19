@@ -1,1 +1,35 @@
-<p>enum works!</p>
+<mat-accordion cdkDrag>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header cdkDragHandle>
+            <mat-panel-title (click)="$event.stopPropagation();">
+                <mat-form-field>
+                    <mat-label>{{item.name}} Identifier...</mat-label>
+                    <input matInput type="text" [(ngModel)]="item.identifier">
+                </mat-form-field>
+            </mat-panel-title>
+
+            <mat-panel-description (click)="$event.stopPropagation();">
+                <div></div>
+                <div>
+                    <a (click)="updateItem()">
+                        <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
+                    </a>
+                    <a (click)="deleteItem()">
+                        <mat-icon color="warn" matTooltip="Delete item...">clear</mat-icon>
+                    </a>
+                </div>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="row">
+            <mat-form-field>
+                <mat-label>New Value</mat-label>
+                <input matInput [(ngModel)]="newValue">
+            </mat-form-field>
+            <mat-icon class="icon" (click)="addEnum()">add_box</mat-icon>
+        </div>
+        <div class="row lbl" *ngFor="let value of item.values">
+            <mat-label>{{value}}</mat-label>
+            <mat-icon (click)="removeEnum(value)" color="warn" matTooltip="Delete item...">clear</mat-icon>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

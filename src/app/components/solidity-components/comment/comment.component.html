@@ -1,7 +1,7 @@
 <div class="content" cdkDrag>
     <mat-form-field>
         <mat-label>{{item.name}}...</mat-label>
-        <input matInput type="text" [(ngModel)]="item.text" (change)="updateItem()">
+        <input matInput type="text" [(ngModel)]="item.text">
     </mat-form-field>
     <div>
         <a (click)="updateItem()">
@@ -9,7 +9,7 @@
         </a>
     
         <a (click)="deleteItem()">
-            <mat-icon color="warn" matTooltip="Delete item...">delete_forever</mat-icon>
+            <mat-icon color="warn" matTooltip="Delete item...">clear</mat-icon>
         </a>
     </div>
 </div>

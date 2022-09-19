@@ -1,7 +1,7 @@
 <mat-accordion (click)="sendContext($event)" cdkDrag>
     <mat-expansion-panel>
         <mat-expansion-panel-header cdkDragHandle>
-            <mat-panel-title>
+            <mat-panel-title >
                 <mat-label>Constructor</mat-label>
             </mat-panel-title>
 
@@ -12,7 +12,7 @@
                         <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
                     </a>
                     <a (click)="deleteItem()">
-                        <mat-icon color="warn" matTooltip="Delete item...">delete_forever</mat-icon>
+                        <mat-icon color="warn" matTooltip="Delete item...">clear</mat-icon>
                     </a>
                 </div>
             </mat-panel-description>
@@ -23,14 +23,19 @@
             [cdkDropListData]="item.parameters || []"
             cdkDropListConnectedTo={{item.uuid}}
             (cdkDropListDropped)="drop($event)">
-            <!--<div class="row">
-                <mat-checkbox [(ngModel)]="item.payable" (ngModelChange)="updateItem()">Payable</mat-checkbox>
-                <mat-checkbox [(ngModel)]="item.internal" (ngModelChange)="updateItem()">Internal</mat-checkbox>
-                <mat-checkbox [(ngModel)]="item.public" (ngModelChange)="updateItem()">Public</mat-checkbox>
-            </div>-->
-            <hr style="background-color: red;">
-            <div *ngFor="let i of item.parameters" cdkDrag>
-                <app-parameter></app-parameter>
+            <div class="row">
+                <mat-checkbox [(ngModel)]="item.payable">Payable</mat-checkbox>
+                <mat-checkbox [(ngModel)]="item.internal">Internal</mat-checkbox>
+                <mat-checkbox [(ngModel)]="item.public">Public</mat-checkbox>
+            </div>
+
+            <div class="row">
+                <div>Parameters</div>
+                <div><mat-icon matTooltip="Add Parameter" (click)="addParameter()">add_box</mat-icon></div>
+            </div>
+
+            <div *ngFor="let i of item.parameters">
+                <app-parameter [item]="i" (deleteItemEvent)="deleteParameter($event)" (updateItemEvent)="updateParameter($event)"></app-parameter>
             </div>
         </div>
     </mat-expansion-panel>

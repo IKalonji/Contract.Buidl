@@ -135,7 +135,7 @@ class Constant extends BaseItem {
 
     override generateStatement(): string {
         if(this.identifier && this.type && this.value) {
-            this.output = `${this.type} constant ${this.identifier} = ${this.value};`;
+            this.output = `${this.type} constant ${this.identifier} = ${this.type.toLocaleLowerCase() == "string" ? "'" + this.value + "'": this.value};`;
         }
         return this.output;
     }

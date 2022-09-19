@@ -51,5 +51,9 @@
                 <app-interface (deleteItemEvent)="deleteItem($event)" (updateItemEvent)="updateItem($event)" [item]="item"></app-interface>
             </div>
         </div>
+
+        <div class="btn-preview">
+            <button (click)="previewFile()" mat-raised-button color="primary">Preview</button>
+        </div>
     </div>
 </div>

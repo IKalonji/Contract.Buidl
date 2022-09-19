@@ -2,17 +2,17 @@
     <div>
         <mat-form-field>
             <mat-label>Import File...</mat-label>
-            <input matInput type="text" [(ngModel)]="item.path" (change)="updateItem()">
+            <input matInput type="text" [(ngModel)]="item.path">
         </mat-form-field>
 
         <mat-form-field matTooltip="Symbol you are importing from file, if omitted the file will be imported. To import all from file type in *.">
             <mat-label>Import Item (optional)...</mat-label>
-            <input matInput type="text" [(ngModel)]="item.identifier" (change)="updateItem()">
+            <input matInput type="text" [(ngModel)]="item.identifier">
         </mat-form-field>
 
         <mat-form-field>
             <mat-label>Import Alias (optional)...</mat-label>
-            <input matInput type="text" [(ngModel)]="item.alias" (change)="updateItem()">
+            <input matInput type="text" [(ngModel)]="item.alias">
         </mat-form-field>
     </div>
     
@@ -21,7 +21,7 @@
             <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
         </a>
         <a (click)="deleteItem()">
-            <mat-icon color="warn" matTooltip="Delete item...">delete_forever</mat-icon>
+            <mat-icon color="warn" matTooltip="Delete item...">clear</mat-icon>
         </a>
     </div>
 </div>

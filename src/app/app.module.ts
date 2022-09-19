@@ -18,6 +18,8 @@ import { MatInputModule } from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTableModule} from '@angular/material/table';
 import {MatRadioModule} from '@angular/material/radio';
+import {TextFieldModule} from '@angular/cdk/text-field';
+import {MatButtonModule} from '@angular/material/button';
 
 
 import { CreateSolidityFileComponent } from './components/create-solidity-file/create-solidity-file.component';
@@ -94,7 +96,9 @@ import { ParameterComponent } from './components/shared-components/parameter/par
     MatExpansionModule,
     MatCheckboxModule,
     MatTableModule,
-    MatRadioModule
+    MatRadioModule,
+    TextFieldModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
