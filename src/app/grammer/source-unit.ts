@@ -354,57 +354,154 @@ class Struct extends BaseItem {
     }
 }
 
-// To Be Implemented
+
 class Function extends BaseItem {
     identifier?: string = "";
-    fallback?: boolean = false;
-    receive?: boolean = false;
     parameters?: Parameter[] = [];
+    visibility?: string = "";
+    mutability?: string = "";
+    virtual?: boolean = false;
+    returns?: Parameter[] = [];
+    block?: Block = new Block();
 
     constructor() {
         super("Function");
     }
 
     override generateStatement(): string {
+        if(this.identifier) {
+            this.output = `function ${this.identifier} (${this.parameters?.map(p => p.generateStatement()).join(", ")})`;
+            if(this.visibility) {
+                this.output += ` ${this.visibility}`;
+            }
+    
+            if(this.mutability) {
+                this.output += ` ${this.mutability}`;
+            }
+    
+            if(this.virtual) {
+                this.output += " virtual";
+            }
+    
+            if(this.returns && this.returns.length > 0) {
+                this.output += ` returns (${this.returns?.map(p => p.generateStatement()).join(", ")})`;
+            }
+            
+            if(this.block?.expressions && this.block.expressions?.length > 0) {
+                this.output += this.block.generateStatement();
+            } else {
+                this.output += ";";
+            }
+        }
         return this.output
     }
 }
 
-// To Be Implemented
+
 class Modifier extends BaseItem {
     identifier?: string = "";
+    parameters?: Parameter[] = [];
+    virtual?: boolean = false;
+    block?: Block = new Block();
 
     constructor() {
         super("Modifier");
     }
 
     override generateStatement(): string {
+        if(this.identifier) {
+            this.output = `modifier ${this.identifier}`;
+            if(this.parameters && this.parameters.length > 0) {
+                this.output += ` (${this.parameters.map(p => p.generateStatement()).join(", ")})`;
+            }
+
+            if(this.virtual) {
+                this.output += " virtual";
+            }
+
+            if(this.block?.expressions && this.block.expressions.length > 0) {
+                this.output += this.block.generateStatement();
+            } else {
+                this.output += ";";
+            }
+        }
         return this.output
     }
 }
 
-// To Be Implemented
+
 class Fallback extends BaseItem {
-    identifier?: string = "";
+    parameters?: Parameter[] = [];
+    external?: boolean = false;
+    mutability?: string = "";
+    virtual?: boolean = false;
+    returns?: Parameter[] = [];
+    block?: Block = new Block();
 
     constructor() {
         super("Fallback");
     }
 
     override generateStatement(): string {
+        this.output = `fallback (${this.parameters?.map(p => p.generateStatement()).join(", ")})`;
+        if(this.external) {
+            this.output += " external";
+        }
+
+        if(this.mutability) {
+            this.output += ` ${this.mutability}`;
+        }
+
+        if(this.virtual) {
+            this.output += " virtual";
+        }
+
+        if(this.returns && this.returns.length > 0) {
+            this.output += ` returns (${this.returns?.map(p => p.generateStatement()).join(", ")})`;
+        }
+        
+        if(this.block?.expressions && this.block.expressions?.length > 0) {
+            this.output += this.block.generateStatement();
+        } else {
+            this.output += ";";
+        }
+
         return this.output
     }
 }
 
-// To Be Implemented
+
 class Receive extends BaseItem {
-    identifier?: string = "";
+    external?: boolean = false;
+    payable?: boolean = false;
+    virtual?: boolean = false;
+    block?: Block = new Block();
 
     constructor() {
         super("Receive");
     }
 
     override generateStatement(): string {
+        this.output = "receive ()";
+
+        if(this.external) {
+            this.output += " external";
+        }
+
+        if(this.payable) {
+            this.output += " payable";
+        }
+
+        if(this.virtual) {
+            this.output += " virtual";
+        }
+
+        if(this.block?.expressions && this.block.expressions.length > 0) {
+            this.output += this.block.generateStatement();
+        } else {
+            this.output += ";";
+        }
+
         return this.output
     }
 }
@@ -537,6 +634,7 @@ class UserDefinedValueType extends BaseItem {
 
 // To Be Implemented
 class Block extends BaseItem {
+    expressions?: BaseItem[] = [];
 
     constructor() {
         super("Block");
