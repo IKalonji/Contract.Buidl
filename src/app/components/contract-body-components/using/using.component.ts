@@ -13,14 +13,11 @@ export class UsingComponent implements OnInit {
   @Output() changeContextEvent = new EventEmitter<Using>();
   @Input() item!: Using;
 
+  identifierPath: string = "";
+
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  changeContext(event:any) {
-    event.stopPropagation();
-    this.changeContextEvent.emit(this.item);;
   }
 
   deleteItem() {
@@ -29,6 +26,27 @@ export class UsingComponent implements OnInit {
 
   updateItem() {
     this.updateItemEvent.emit(this.item);
+  }
+
+  addIdentifier() {
+    if(this.item.identifiers) {
+      let index = this.item.identifiers.findIndex(i => i.toLocaleLowerCase() == this.identifierPath.toLocaleLowerCase());
+      if(index < 0) {
+        this.item.identifiers.push(this.identifierPath);
+        this.identifierPath = "";
+        this.updateItem();
+      }
+    }
+  }
+
+  deleteIdentifier(identifier: string) {
+    if(this.item.identifiers) {
+      let index = this.item.identifiers?.findIndex(i => i.toLocaleLowerCase() == identifier.toLocaleLowerCase());
+      if(index > -1) {
+        this.item.identifiers.splice(index, 1);
+      }
+      this.updateItem();
+    }
   }
 
 }

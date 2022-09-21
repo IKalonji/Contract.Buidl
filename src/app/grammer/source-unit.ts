@@ -443,9 +443,9 @@ class Event extends BaseItem {
 
     override generateStatement(): string {
         if(this.identifier) {
-            this.output = `event ${this.identifier} (${this.parameters?.join(", ")})`;
+            this.output = `event ${this.identifier} (${this.parameters?.map(p => p.generateStatement()).join(", ")})`;
             if(this.anonymous) {
-                this.output += ` ${this.anonymous}`;
+                this.output += ` ${this.anonymous ? "anonymous": ""}`;
             }
             this.output += ";";
         }
@@ -463,7 +463,7 @@ class ErrorParameter extends BaseItem {
 
     override generateStatement(): string {
         if(this.type) {
-            [this.type, this.identifier].filter(Boolean).join(" ");
+            this.output = `${this.type} ${this.identifier}`;
         }
         return this.output
     }
@@ -479,7 +479,9 @@ class Error extends BaseItem {
 
     override generateStatement(): string {
         if(this.identifier) {
-            this.output = `error ${this.identifier} (${this.parameters?.join(", ")});`
+            console.log(this.parameters);
+            this.output = `error ${this.identifier} (${this.parameters?.map(p => p.generateStatement()).join(", ")});`;
+            console.log(this.output);
         }
         return this.output
     }
@@ -495,6 +497,9 @@ class Using extends BaseItem {
     }
 
     override generateStatement(): string {
+        if(!this.type) {
+            this.type = "*";
+        }
         if(this.type && this.identifiers && this.identifiers.length > 0) {
             if(this.identifiers?.length == 1) {
                 this.output = `using ${this.identifiers[0]} for ${this.type} `;

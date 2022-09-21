@@ -1,1 +1,45 @@
-<p>event works!</p>
+<mat-accordion cdkDrag>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header cdkDragHandle>
+            <mat-panel-title (click)="$event.stopPropagation();">
+                <mat-form-field>
+                    <mat-label>{{item.name}} Identifier...</mat-label>
+                    <input matInput type="text" [(ngModel)]="item.identifier">
+                </mat-form-field>
+            </mat-panel-title>
+
+            <mat-panel-description (click)="$event.stopPropagation();">
+                <mat-checkbox [(ngModel)]="item.anonymous">Anonymous</mat-checkbox>
+                <div>
+                    <a (click)="updateItem()">
+                        <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
+                    </a>
+                    <a (click)="deleteItem()">
+                        <mat-icon color="warn" matTooltip="Delete item...">clear</mat-icon>
+                    </a>
+                </div>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Type</mat-label>
+                <input matInput [(ngModel)]="newParam.type">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Identifier (optional)</mat-label>
+                <input matInput [(ngModel)]="newParam.identifier">
+            </mat-form-field>
+
+            <mat-checkbox [(ngModel)]="newParam.indexed">Indexed</mat-checkbox>
+            
+            <mat-icon class="icon" (click)="addEventParam()">add_box</mat-icon>
+        </div>
+        <div class="row lbl" *ngFor="let param of item.parameters">
+            <mat-label>{{param.type}}</mat-label>
+            <mat-label>{{param.identifier}}</mat-label>
+            <mat-label>Indexed: {{param.indexed}}</mat-label>
+            <mat-icon (click)="deleteEventParam(param)" color="warn" matTooltip="Delete item...">clear</mat-icon>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

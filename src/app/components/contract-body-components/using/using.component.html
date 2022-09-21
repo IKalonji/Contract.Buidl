@@ -1,1 +1,35 @@
-<p>using works!</p>
+<mat-accordion cdkDrag>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header cdkDragHandle>
+            <mat-panel-title (click)="$event.stopPropagation();">
+                <mat-form-field>
+                    <mat-label>{{item.name}} Type (optional)...</mat-label>
+                    <input matInput type="text" [(ngModel)]="item.type">
+                </mat-form-field>
+            </mat-panel-title>
+
+            <mat-panel-description (click)="$event.stopPropagation();">
+                <mat-checkbox [(ngModel)]="item.global">Global</mat-checkbox>
+                <div>
+                    <a (click)="updateItem()">
+                        <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
+                    </a>
+                    <a (click)="deleteItem()">
+                        <mat-icon color="warn" matTooltip="Delete item...">clear</mat-icon>
+                    </a>
+                </div>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Identifier Path</mat-label>
+                <input matInput [(ngModel)]="identifierPath">
+            </mat-form-field>
+            <mat-icon class="icon" matTooltip="add identifier path" (click)="addIdentifier()">add_box</mat-icon>
+        </div>
+        <div class="row lbl" *ngFor="let identifier of item.identifiers">
+            <mat-label>{{identifier}}</mat-label>
+            <mat-icon (click)="deleteIdentifier(identifier)" color="warn" matTooltip="Delete item...">clear</mat-icon>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>
