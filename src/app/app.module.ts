@@ -20,6 +20,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatRadioModule} from '@angular/material/radio';
 import {TextFieldModule} from '@angular/cdk/text-field';
 import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
 
 
 import { CreateSolidityFileComponent } from './components/create-solidity-file/create-solidity-file.component';
@@ -98,7 +99,8 @@ import { ParameterComponent } from './components/shared-components/parameter/par
     MatTableModule,
     MatRadioModule,
     TextFieldModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

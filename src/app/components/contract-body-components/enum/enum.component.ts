@@ -28,11 +28,8 @@ export class EnumComponent implements OnInit {
   }
 
   addEnum() {
-    if(this.newValue) {
-      if(!this.item.values?.find(i => i.toLocaleLowerCase() == this.newValue.toLocaleLowerCase())) {
-        this.item.values?.push(this.newValue);
-        this.newValue = "";
-      }
+    if(this.item.values) {
+      this.item.values.push(this.newValue);
     }
     this.updateItem();
   }
@@ -42,6 +39,16 @@ export class EnumComponent implements OnInit {
       let index = this.item.values?.findIndex(i => i == value);
       if(index > -1) {
         this.item.values.splice(index, 1);
+      }
+    }
+    this.updateItem();
+  }
+
+  updateEnum(value: string) {
+    if(this.item.values) {
+      let index = this.item.values?.findIndex(i => i == value);
+      if(index > -1) {
+        this.item.values[index] = value;
       }
     }
     this.updateItem();

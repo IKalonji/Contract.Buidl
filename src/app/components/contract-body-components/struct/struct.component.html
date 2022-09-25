@@ -20,21 +20,25 @@
                 </div>
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <div class="row">
-            <mat-form-field>
-                <mat-label>Type</mat-label>
-                <input matInput [(ngModel)]="newMember.type">
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Identifier</mat-label>
-                <input matInput [(ngModel)]="newMember.identifier">
-            </mat-form-field>
-            <mat-icon class="icon" (click)="addEnum()">add_box</mat-icon>
+        
+        <div class="row icon">
+            <div>Members</div>
+            <div><mat-icon (click)="addMember()">add_box</mat-icon></div>
         </div>
-        <div class="row lbl" *ngFor="let member of item.members">
-            <mat-label>Type: {{member.type}}</mat-label>
-            <mat-label>Identifier: {{member.identifier}}</mat-label>
-            <mat-icon (click)="removeEnum(member)" color="warn" matTooltip="Delete item...">clear</mat-icon>
+
+        <div class="row member" *ngFor="let member of item.members">
+            <mat-form-field>
+                <mat-label>Member Type</mat-label>
+                <input matInput [(ngModel)]="member.type">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Member Identifier</mat-label>
+                <input matInput [(ngModel)]="member.identifier">
+            </mat-form-field>
+            <div class="icon">
+                <mat-icon (click)="updateMember(member)" color="primary" matTooltip="Update item...">done</mat-icon>
+                <mat-icon (click)="removeMember(member)" color="warn" matTooltip="Delete item...">clear</mat-icon>
+            </div>
         </div>
     </mat-expansion-panel>
 </mat-accordion>

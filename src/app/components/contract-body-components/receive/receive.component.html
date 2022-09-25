@@ -1,1 +1,32 @@
-<p>receive works!</p>
+<mat-accordion (click)="sendContext($event)" cdkDrag>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header cdkDragHandle>
+            <mat-panel-title >
+                <mat-label>Receive</mat-label>
+            </mat-panel-title>
+
+            <mat-panel-description>
+                <div></div>
+                <div (click)="$event.stopPropagation();">
+                    <a (click)="updateItem()">
+                        <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
+                    </a>
+                    <a (click)="deleteItem()">
+                        <mat-icon color="warn" matTooltip="Delete item...">clear</mat-icon>
+                    </a>
+                </div>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="content">
+            <div class="row">
+                <mat-checkbox [(ngModel)]="item.external">External</mat-checkbox>
+                <mat-checkbox [(ngModel)]="item.payable">Payable</mat-checkbox>
+                <mat-checkbox [(ngModel)]="item.virtual">Virtual</mat-checkbox>
+            </div>
+
+            <div class="row">
+                <div><u>Block</u></div>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

@@ -12,8 +12,6 @@ export class StructComponent implements OnInit {
   @Output() updateItemEvent = new EventEmitter<Struct>();
   @Input() item!: Struct;
 
-  newMember: StructMember = new StructMember();
-
   constructor() { }
 
   ngOnInit(): void {
@@ -27,24 +25,28 @@ export class StructComponent implements OnInit {
     this.updateItemEvent.emit(this.item);
   }
 
-  addEnum() {
-    if(this.newMember) {
-      if(!this.item.members?.find(i => i.identifier?.toLocaleLowerCase() == this.newMember.identifier?.toLocaleLowerCase())) {
-        let member = new StructMember();
-        member.type = this.newMember.type;
-        member.identifier = this.newMember.identifier;
-        this.item.members?.push(member);
-        this.newMember = new StructMember();
+  addMember() {
+    if(this.item.members) {
+      this.item.members.push(new StructMember());
+    }
+    this.updateItem();
+  }
+
+  removeMember(member: StructMember) {
+    if(this.item.members) {
+      let index = this.item.members?.findIndex(i => i.uuid == member.uuid);
+      if(index > -1) {
+        this.item.members.splice(index, 1);
       }
     }
     this.updateItem();
   }
 
-  removeEnum(member: StructMember) {
+  updateMember(member: StructMember) {
     if(this.item.members) {
       let index = this.item.members?.findIndex(i => i.uuid == member.uuid);
       if(index > -1) {
-        this.item.members.splice(index, 1);
+        this.item.members[index] = member;
       }
     }
     this.updateItem();

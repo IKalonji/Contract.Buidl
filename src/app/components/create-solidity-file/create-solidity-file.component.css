@@ -55,14 +55,19 @@
     border-radius: 5px;
 }
 
-.col mat-label {
+mat-label {
     padding: 2px;
     width: 100%;
     font-weight: bold;
 }
+
 .mat-expansion-panel-header-description {
     justify-content: space-between;
     align-items: center;
+}
+
+mat-icon {
+    color: gray;
 }
 
 a {

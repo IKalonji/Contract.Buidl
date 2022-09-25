@@ -15,39 +15,20 @@ mat-panel-description div {
     gap: 10px;
 }
 
-.content {
-    font-size: 11px;
+.row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 5px;
-    padding: 5px 5px 60px 5px;
-    margin-top: 10px;
-    background-color: rgba(211, 211, 211, 0.3);
-    border-radius: 5px;
-    border: 1px splid purple;
 }
 
-.row {
-    margin-top: 5px;
-    font-size: 11px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0 5px;
+.member {
     border: 1px solid purple;
+    padding: 0 5px;
     border-radius: 5px;
+    margin-top: 5px;
+    font-weight: bold;
 }
 
 .icon {
-    margin-top: 10px;
-}
-
-.mat-input {
-    height: 26px;
-}
-.lbl {
-    font-size: 12px;
     padding: 5px;
-    font-weight: bold;
 }
