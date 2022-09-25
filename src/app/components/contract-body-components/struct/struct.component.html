@@ -29,8 +29,12 @@
         <div class="row member" *ngFor="let member of item.members">
             <mat-form-field>
                 <mat-label>Member Type</mat-label>
-                <input matInput [(ngModel)]="member.type">
+                <input type="text" matInput [matAutocomplete]="auto" [(ngModel)]="member.type">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
+                </mat-autocomplete>
             </mat-form-field>
+
             <mat-form-field>
                 <mat-label>Member Identifier</mat-label>
                 <input matInput [(ngModel)]="member.identifier">

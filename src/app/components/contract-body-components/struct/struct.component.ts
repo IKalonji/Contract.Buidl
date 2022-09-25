@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Struct, StructMember } from 'src/app/grammer/source-unit';
+import { ElementaryTypes } from 'src/app/constants/solidity-syntax';
 
 @Component({
   selector: 'app-struct',
@@ -11,6 +12,8 @@ export class StructComponent implements OnInit {
   @Output() deleteItemEvent = new EventEmitter<Struct>();
   @Output() updateItemEvent = new EventEmitter<Struct>();
   @Input() item!: Struct;
+
+  types: string[] = ElementaryTypes;
 
   constructor() { }
 

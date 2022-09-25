@@ -2,7 +2,10 @@
     <div class="row">
         <mat-form-field>
             <mat-label>Parameter Type</mat-label>
-            <input matInput type="text" [(ngModel)]="item.type">
+            <input type="text" matInput [matAutocomplete]="auto" [(ngModel)]="item.type">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
+            </mat-autocomplete>
         </mat-form-field>
 
         <mat-form-field>

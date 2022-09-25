@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Parameter } from 'src/app/grammer/source-unit';
 import { DataLocation } from 'src/app/constants/solidity-syntax';
+import { ElementaryTypes } from 'src/app/constants/solidity-syntax';
 
 @Component({
   selector: 'app-parameter',
@@ -14,6 +15,7 @@ export class ParameterComponent implements OnInit {
   @Input() item!: Parameter;
 
   dataLocation: string[] = DataLocation;
+  types: string[] = ElementaryTypes;
 
   constructor() { }
 

@@ -29,8 +29,35 @@ const Visibilty: any[] = [
 
 const DataLocation: any[] = [
     "memory", "storage", "calldata"
-]
+];
+
+const Integers = function GenerateIntegerTypes() : string [] {
+    let integerTypes: string[] = [];
+
+    for(let i = 8; i <= 256; i += 8) {
+        integerTypes.push(`int${i}`);
+        integerTypes.push(`uint${i}`);
+    }
+
+    return integerTypes;
+}
+
+const Bytes = function GenerateByteTypes() : string [] {
+    let byteTypes: string[] = [];
+
+    for(let i = 1; i <= 32; i++) {
+        byteTypes.push(`bytes${i}`);
+    }
+
+    return byteTypes;
+}
+
+const ElementaryTypes: any = [
+    "address", "address payable", "bool", "string", "bytes", "wei", "gwei", "ether", "seconds",
+    "minutes", "hours", "days", "weeks", "years", "int", "uint", ...Integers(), ...Bytes()
+];
 
 export {
-    FileItems, ContractItems, ConstructorItems, StateMutability, Visibilty, DataLocation
+    FileItems, ContractItems, ConstructorItems, StateMutability, Visibilty, DataLocation, 
+    ElementaryTypes
 }
