@@ -57,7 +57,45 @@ const ElementaryTypes: any = [
     "minutes", "hours", "days", "weeks", "years", "int", "uint", ...Integers(), ...Bytes()
 ];
 
+const ArithmeticOperators: {[key: string]: string} [] = [
+    { "Name": "Addition", "Value": "+" }, { "Name": "Subtraction", "Value": "-" }, 
+    { "Name": "Multiplication", "Value": "*" }, { "Name": "Division", "Value": "/" }, 
+    { "Name": "Modulus", "Value": "%" }, { "Name": "Increment", "Value": "++" },
+    { "Name": "Decrement", "Value": "--" }
+];
+
+const RelationalOperators: {[key: string]: string} [] = [
+    { "Name": "Equal", "Value": "==" }, { "Name": "Not Equal", "Value": "!=" }, 
+    { "Name": "Greater Than", "Value": ">" }, { "Name": "Less Than", "Value": "<" }, 
+    { "Name": "Greater Than or Equal", "Value": ">=" }, { "Name": "Less Than or Equal", "Value": "<=" }
+];
+
+const LogicalOperators: {[key: string]: string} [] = [
+    { "Name": "Logical AND", "Value": "&&" }, { "Name": "Logical OR", "Value": "||" }, 
+    { "Name": "Logical NOT", "Value": "!" }
+];
+
+const BitwiseOperators: {[key: string]: string} [] = [
+    { "Name": "Bitwise AND", "Value": "&" }, { "Name": "BitWise OR", "Value": "|" }, 
+    { "Name": "Bitwise XOR", "Value": "^" }, { "Name": "Bitwise NOT", "Value": "~" }, 
+    { "Name": "Left Shift", "Value": "<<" }, { "Name": "Right Shift", "Value": ">>" }, 
+    { "Name": "Right Shift With Zero", "Value": ">>>" }
+];
+
+const BitwiseAssignmentOperators = function GenerateBitwiseAssignmentOperators() : {[key: string]: string} [] {
+    return BitwiseOperators.map(o => ({ "Name": `${o['Name']} Assignment`, "Value": `${o['Value']}=` }));
+}
+
+const AssignmentExpressions: {[key: string]: string} [] = [
+    { "Name": "Equal Assignment", "Value": "=" }, { "Name": "Add Assignment", "Value": "+=" }, 
+    { "Name": "Subtract Assignment", "Value": "-=" }, { "Name": "Multiply Assignment", "Value": "*=" }, 
+    { "Name": "Divide Assignment", "Value": "/=" }, { "Name": "Modulus Assignment", "Value": "%=" },
+    ...BitwiseAssignmentOperators()
+];
+
+
 export {
-    FileItems, ContractItems, ConstructorItems, StateMutability, Visibilty, DataLocation, 
-    ElementaryTypes
+    ContractItems, ConstructorItems, StateMutability, Visibilty, DataLocation, 
+    ElementaryTypes, RelationalOperators, ArithmeticOperators, LogicalOperators, BitwiseOperators,
+    AssignmentExpressions, FileItems
 }

@@ -35,7 +35,6 @@ import { PragmaComponent } from './components/solidity-components/pragma/pragma.
 import { AbiCoderPragmaComponent } from './components/solidity-components/abi-coder-pragma/abi-coder-pragma.component';
 import { LibraryComponent } from './components/solidity-components/library/library.component';
 import { InterfaceComponent } from './components/solidity-components/interface/interface.component';
-import { StopClickPropagationDirective } from './directives/stop-click-propagation.directive';
 import { StateVariableComponent } from './components/contract-body-components/state-variable/state-variable.component';
 import { ConstructorComponent } from './components/contract-body-components/constructor/constructor.component';
 import { StructComponent } from './components/contract-body-components/struct/struct.component';
@@ -49,6 +48,7 @@ import { EventComponent } from './components/contract-body-components/event/even
 import { ErrorComponent } from './components/contract-body-components/error/error.component';
 import { UsingComponent } from './components/contract-body-components/using/using.component';
 import { ParameterComponent } from './components/shared-components/parameter/parameter.component';
+import { BlockComponent } from './components/shared-components/parameter/block/block.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +64,6 @@ import { ParameterComponent } from './components/shared-components/parameter/par
     AbiCoderPragmaComponent,
     LibraryComponent,
     InterfaceComponent,
-    StopClickPropagationDirective,
     StateVariableComponent,
     ConstructorComponent,
     StructComponent,
@@ -77,7 +76,8 @@ import { ParameterComponent } from './components/shared-components/parameter/par
     EventComponent,
     ErrorComponent,
     UsingComponent,
-    ParameterComponent
+    ParameterComponent,
+    BlockComponent
   ],
   imports: [
     BrowserModule,

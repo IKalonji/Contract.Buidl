@@ -632,7 +632,191 @@ class UserDefinedValueType extends BaseItem {
     }
 }
 
-// To Be Implemented
+class Operator extends BaseItem {
+    oparator: any;
+    constructor() {
+        super("Operator");
+    }
+
+    override generateStatement(): string {
+        return this.output ? this.output : "";
+    }
+}
+
+class Expression extends BaseItem {
+    left: string = "";
+    right: string = "";
+    leftExp?: Expression;
+    rightExp?: Expression;
+    operator?: Operator;
+
+    constructor() {
+        super("Expression");
+    }
+
+    override generateStatement(): string {
+        if(this.leftExp) {
+            this.output = this.leftExp.generateStatement();
+        } else {
+            this.output = this.left;
+        }
+
+        this.output += this.operator?.generateStatement();
+
+        if(this.rightExp) {
+            this.output += this.rightExp.generateStatement();
+        } else {
+            this.output += this.right;
+        }
+
+        return this.output
+    }
+}
+
+class IfStatement extends BaseItem {
+    ifConditions: Expression[] = [];
+    ifStatements: Block[] = [];
+    elseStatement?: Block;
+
+    constructor() {
+        super("IfStatement");
+    }
+    
+    override generateStatement(): string {
+        if(this.ifConditions.length > 0) {
+            this.output += `if (${this.ifConditions[0].generateStatement()}) ${this.ifStatements[0].generateStatement()}`;
+            for(let i = 1; i < this.ifConditions.length; i++) {
+                this.output += ` else if (${this.ifConditions[i].generateStatement()}) ${this.ifStatements[i].generateStatement()}`;
+            }
+            if(this.elseStatement) {
+                this.output += ` else ${this.elseStatement.generateStatement()}`
+            }
+        }
+
+        return this.output;
+    }
+}
+
+class ForStatement extends BaseItem {
+    initializer?: Expression;
+    condition?: Expression;
+    iteration?: Expression;
+
+    constructor() {
+        super("WhileStatement");
+    }
+
+    override generateStatement(): string {
+        //this.output = `while (${this.expression?.generateStatement()}) ${this.statement?.generateStatement()}`;
+        return this.output;
+    }
+}
+
+class WhileStatement extends BaseItem {
+    statement?: Block;
+    expression?: Expression;
+
+    constructor() {
+        super("WhileStatement");
+    }
+
+    override generateStatement(): string {
+        this.output = `while (${this.expression?.generateStatement()}) ${this.statement?.generateStatement()}`;
+        return this.output;
+    }
+}
+
+class DoWhileStatement extends BaseItem {
+    statement?: Block;
+    expression?: Expression;
+
+    constructor() {
+        super("DoWhileStatement");
+    }
+
+    override generateStatement(): string {
+        this.output = `do ${this.statement?.generateStatement()} while (${this.expression?.generateStatement()});`;
+        return this.output;
+    }
+}
+
+class ContinueStatement extends  BaseItem {
+    constructor() {
+        super("ContinueStatement");
+    }
+
+    override generateStatement(): string {
+        return "continue;";
+    }
+}
+
+class BreakStatement extends  BaseItem {
+    constructor() {
+        super("BreakStatement");
+    }
+
+    override generateStatement(): string {
+        return "break;";
+    }
+}
+
+class CatchClause extends BaseItem {
+    identifier?: string = "";
+    parameters?: Parameter[] = [];
+    block?: Block;
+
+    constructor() {
+        super("CatchClause");
+    }
+
+    override generateStatement(): string {
+        this.output = "catch";
+        if(this.identifier || this.parameters) {
+            this.output += ` ${this.identifier} "(" + ${this.parameters?.map(p => p.generateStatement()).join(", ") + ")"} `;
+        }
+
+        this.output += this.block?.generateStatement();
+
+        return this.output;
+    }
+}
+
+class TryStatement extends BaseItem {
+    expression?: Expression;
+    returns?: Parameter[] = [];
+    block?: Block;
+    catchClauses?: CatchClause[] = [];
+
+    constructor() {
+        super("TryStatement");
+    }
+
+    override generateStatement(): string {
+        this.output = `try ${this.expression?.generateStatement()}`;
+        if(this.returns && this.returns.length > 0) {
+            this.output += ` returns "(" + ${this.returns?.map(p => p.generateStatement()).join(", ") + ")"} `;
+        }
+
+        this.output += this.block?.generateStatement();
+
+        this.output += this.catchClauses?.map(c => c.generateStatement()).join(" ");
+
+        return this.output;
+    }
+}
+
+class ReturnStatement extends  BaseItem {
+    expression?: Expression;
+
+    constructor() {
+        super("ReturnStatement");
+    }
+
+    override generateStatement(): string {
+        return `return ${this.expression ? this.expression.generateStatement() : ""};`;
+    }
+}
+
 class Block extends BaseItem {
     expressions?: BaseItem[] = [];
 
@@ -641,7 +825,7 @@ class Block extends BaseItem {
     }
 
     override generateStatement(): string {
-        this.output = " {\nBlock code comes here... \n}";
+        this.output = `{\n${this.expressions?.map(e => e.generateStatement()).join(";\n")};\n}`;
         return this.output
     }
 }
@@ -650,5 +834,7 @@ export {
     BaseItem, License, Pragma, Comment, Constant, Version, ABICoderPragma, Variable, Error,
     Import, Contract, Interface, Library, Parameter, Block, Constructor, Modifier, Using,
     StructMember, Struct, Enum, StateVariable, Function, Fallback, Receive, Event,
-    UserDefinedValueType, EventParameter, ErrorParameter
+    UserDefinedValueType, EventParameter, ErrorParameter,  Operator, Expression, 
+    ReturnStatement, TryStatement, CatchClause, BreakStatement, ContinueStatement, DoWhileStatement,
+    WhileStatement, ForStatement, IfStatement
 }
