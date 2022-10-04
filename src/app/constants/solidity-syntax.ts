@@ -57,45 +57,49 @@ const ElementaryTypes: any = [
     "minutes", "hours", "days", "weeks", "years", "int", "uint", ...Integers(), ...Bytes()
 ];
 
-const ArithmeticOperators: {[key: string]: string} [] = [
-    { "Name": "Addition", "Value": "+" }, { "Name": "Subtraction", "Value": "-" }, 
-    { "Name": "Multiplication", "Value": "*" }, { "Name": "Division", "Value": "/" }, 
-    { "Name": "Modulus", "Value": "%" }, { "Name": "Increment", "Value": "++" },
-    { "Name": "Decrement", "Value": "--" }
+const BeforeOperators: {[key: string]: string} [] = [
+    { "Name": "PreIncrement", "Value": "++" }, { "Name": "PreDecrement", "Value": "--" },
+    { "Name": "Not", "Value": "!" }, { "Name": "BitWise Not", "Value": "~" },
+    { "Name": "Delete", "Value": "delete " }, { "Name": "Negative", "Value": "-" }
 ];
 
-const RelationalOperators: {[key: string]: string} [] = [
-    { "Name": "Equal", "Value": "==" }, { "Name": "Not Equal", "Value": "!=" }, 
-    { "Name": "Greater Than", "Value": ">" }, { "Name": "Less Than", "Value": "<" }, 
-    { "Name": "Greater Than or Equal", "Value": ">=" }, { "Name": "Less Than or Equal", "Value": "<=" }
+const AfterOperators: {[key: string]: string} [] = [
+    { "Name": "PostIncrement", "Value": "++" }, { "Name": "PostDecrement", "Value": "--" }
 ];
 
 const LogicalOperators: {[key: string]: string} [] = [
-    { "Name": "Logical AND", "Value": "&&" }, { "Name": "Logical OR", "Value": "||" }, 
-    { "Name": "Logical NOT", "Value": "!" }
-];
-
-const BitwiseOperators: {[key: string]: string} [] = [
+    { "Name": "Power", "Value": "**" }, { "Name": "Add", "Value": "+" }, 
+    { "Name": "Subtract", "Value": "-" }, { "Name": "Multiply", "Value": "*" }, 
+    { "Name": "Divide", "Value": "/" }, { "Name": "Modulus", "Value": "%" }, 
     { "Name": "Bitwise AND", "Value": "&" }, { "Name": "BitWise OR", "Value": "|" }, 
-    { "Name": "Bitwise XOR", "Value": "^" }, { "Name": "Bitwise NOT", "Value": "~" }, 
-    { "Name": "Left Shift", "Value": "<<" }, { "Name": "Right Shift", "Value": ">>" }, 
-    { "Name": "Right Shift With Zero", "Value": ">>>" }
+    { "Name": "Bitwise XOR", "Value": "^" }, { "Name": "Left Shift", "Value": "<<" }, 
+    { "Name": "Right Shift", "Value": ">>" }, { "Name": "Right Shift With Zero", "Value": ">>>" }
 ];
 
-const BitwiseAssignmentOperators = function GenerateBitwiseAssignmentOperators() : {[key: string]: string} [] {
-    return BitwiseOperators.map(o => ({ "Name": `${o['Name']} Assignment`, "Value": `${o['Value']}=` }));
-}
+const CompareOperators: {[key: string]: string} [] = [
+    { "Name": "Less Than", "Value": "<" }, { "Name": "Greater Than", "Value": ">" },
+    { "Name": "Less Or Equal", "Value": "<=" }, { "Name": "Greater Or Equal", "Value": ">=" },
+    { "Name": "Equal To", "Value": "== " }, { "Name": "Not Equal To", "Value": "!=" }
+];
 
-const AssignmentExpressions: {[key: string]: string} [] = [
-    { "Name": "Equal Assignment", "Value": "=" }, { "Name": "Add Assignment", "Value": "+=" }, 
-    { "Name": "Subtract Assignment", "Value": "-=" }, { "Name": "Multiply Assignment", "Value": "*=" }, 
-    { "Name": "Divide Assignment", "Value": "/=" }, { "Name": "Modulus Assignment", "Value": "%=" },
-    ...BitwiseAssignmentOperators()
+const AssignmentOperators: {[key: string]: string} [] = [
+    { "Name": "Equal", "Value": "=" }, { "Name": "Add To", "Value": "+=" },
+    { "Name": "Subtract From", "Value": "-=" }, { "Name": "Multiply With", "Value": "*=" },
+    { "Name": "Divide With", "Value": "/=" }, { "Name": "Modulus Of", "Value": "%=" },
+    { "Name": "Equal", "Value": "=" }, { "Name": "Add To", "Value": "+=" }
+];
+
+const Statements: any [] = [
+    "If", "For", "While", "Do-While", "Continue", "Break", "Try-Catch", "Return"
+];
+
+const Expressions: any [] = [
+    "Before", "After", "Compare", "Assignment", "Logic"
 ];
 
 
 export {
     ContractItems, ConstructorItems, StateMutability, Visibilty, DataLocation, 
-    ElementaryTypes, RelationalOperators, ArithmeticOperators, LogicalOperators, BitwiseOperators,
-    AssignmentExpressions, FileItems
+    ElementaryTypes, FileItems, Statements, LogicalOperators, CompareOperators,
+    AssignmentOperators, AfterOperators, BeforeOperators, Expressions
 }

@@ -1,8 +1,8 @@
-<mat-accordion (click)="sendContext($event)" cdkDrag>
+<mat-accordion cdkDrag>
     <mat-expansion-panel>
         <mat-expansion-panel-header cdkDragHandle>
             <mat-panel-title >
-                <mat-label>Constructor</mat-label>
+                <mat-label>{{item.name}}</mat-label>
             </mat-panel-title>
 
             <mat-panel-description>
@@ -36,6 +36,10 @@
 
             <div *ngFor="let i of item.parameters">
                 <app-parameter [item]="i" (deleteItemEvent)="deleteParameter($event)" (updateItemEvent)="updateParameter($event)"></app-parameter>
+            </div>
+
+            <div class="col">
+                <app-block [item]="item.block"></app-block>
             </div>
         </div>
     </mat-expansion-panel>

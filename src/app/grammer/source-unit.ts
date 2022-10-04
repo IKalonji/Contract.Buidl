@@ -644,32 +644,115 @@ class Operator extends BaseItem {
 }
 
 class Expression extends BaseItem {
-    left: string = "";
-    right: string = "";
-    leftExp?: Expression;
-    rightExp?: Expression;
-    operator?: Operator;
+    operator?: string = "";
+}
+
+class AfterExpression extends Expression {
+    left?: string = "";
 
     constructor() {
-        super("Expression");
+        super("AfterExpression");
+    }
+
+    override generateStatement(): string {
+        if(this.operator && this.left) {
+            this.output = this.left + this.operator + ";";
+        }
+        return this.output;
+    }
+}
+
+class BeforeExpression extends Expression {
+    right?: string = "";
+
+    constructor() {
+        super("BeforeExpression");
+    }
+
+    override generateStatement(): string {
+        if(this.operator && this.right) {
+            this.output = this.operator + this.right + ";";
+        }
+        return this.output;
+    }
+}
+
+class LogicalExpression extends Expression {
+    left?: string = "";
+    right?: string = "";
+    leftExp?: Expression;
+    rightExp?: Expression;
+
+    constructor() {
+        super("LogicalExpression");
     }
 
     override generateStatement(): string {
         if(this.leftExp) {
             this.output = this.leftExp.generateStatement();
         } else {
-            this.output = this.left;
+            this.output = this.left ?? "";
         }
 
-        this.output += this.operator?.generateStatement();
+        this.output += ` ${this.operator} `;
 
         if(this.rightExp) {
             this.output += this.rightExp.generateStatement();
         } else {
-            this.output += this.right;
+            this.output += this.right ?? "";
+        }
+        return this.output;
+    }
+}
+
+class CompareExpression extends Expression {
+    left?: string = "";
+    right?: string = "";
+    leftExp?: Expression;
+    rightExp?: Expression;
+
+    constructor() {
+        super("CompareExpression");
+    }
+
+    override generateStatement(): string {
+        if(this.leftExp) {
+            this.output = this.leftExp.generateStatement();
+        } else {
+            this.output = this.left ?? "";
         }
 
-        return this.output
+        this.output += ` ${this.operator} `;
+
+        if(this.rightExp) {
+            this.output += this.rightExp.generateStatement();
+        } else {
+            this.output += this.right ?? "";
+        }
+        return this.output;
+    }
+}
+
+class AssigmentExpression extends Expression {
+    left?: string = "";
+    right?: string = "";
+    rightExp?: Expression;
+
+    constructor() {
+        super("AssigmentExpression");
+    }
+
+    override generateStatement(): string {
+        this.output = this.left ?? "";
+
+        this.output += ` ${this.operator} `;
+
+        if(this.rightExp) {
+            this.output += this.rightExp.generateStatement();
+        } else {
+            this.output += this.right ?? "";
+        }
+        return this.output;
     }
 }
 
@@ -836,5 +919,6 @@ export {
     StructMember, Struct, Enum, StateVariable, Function, Fallback, Receive, Event,
     UserDefinedValueType, EventParameter, ErrorParameter,  Operator, Expression, 
     ReturnStatement, TryStatement, CatchClause, BreakStatement, ContinueStatement, DoWhileStatement,
-    WhileStatement, ForStatement, IfStatement
+    WhileStatement, ForStatement, IfStatement, AfterExpression, BeforeExpression, CompareExpression,
+    LogicalExpression, AssigmentExpression
 }

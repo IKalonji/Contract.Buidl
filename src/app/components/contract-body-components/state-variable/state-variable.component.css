@@ -1,32 +1,30 @@
-.row {
-    border: 1px solid purple;
-    background-color: #fff;
-    border-radius: 5px;
-    font-size: 12px;
-}
-
-
 .content {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 0 10px 0 24px;
+    border: 1px solid gray;
+    background-color: #fff;
+    border-radius: 5px;
 }
 
 .content:hover {
     background-color: #fafafaec;
 }
 
-.content div {
+.col {
+    margin-top: 10px;
+    width: fit-content;
+}
+
+.row {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;
+    max-width: 90%;
     gap: 10px;
 }
 
-.content .col {
-    margin-top: 5px;
-}
-
 mat-form-field {
-    height: 36px;
+    height: 44px;
 }

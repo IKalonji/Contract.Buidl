@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    min-height: 150px;
+}
+
+.statement {
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+button {
+    margin: 5px;
+    border-radius: 15px;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+}
+
+.headers {
+    width: 100%;
+    text-align: center;
+}

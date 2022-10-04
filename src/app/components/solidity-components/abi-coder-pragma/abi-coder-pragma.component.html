@@ -1,11 +1,11 @@
-<mat-radio-group [(ngModel)]="version1" (change)="selectionChanged()"  cdkDrag>
+<mat-radio-group class="content" [(ngModel)]="version1" (change)="selectionChanged()"  cdkDrag>
     <div>
         <mat-label>ABI Coder Version</mat-label>
         <mat-radio-button value=true checked="true">v1</mat-radio-button>
         <mat-radio-button value=false>v2</mat-radio-button>
     </div>
 
-    <div>
+    <div class="col">
         <a (click)="updateItem()" style="float: right;">
             <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
         </a>

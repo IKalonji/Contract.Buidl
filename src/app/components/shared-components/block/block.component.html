@@ -1,0 +1,44 @@
+<div class="headers">
+    <b>Statements</b>
+</div>
+<div 
+    class="statement"
+    id="statement"
+    cdkDropList
+    [cdkDropListData]="statements || []"
+    cdkDropListConnectedTo={{item?.uuid}}
+    (cdkDropListDropped)="drop($event)">
+    <button mat-raised-button color="primary" *ngFor="let statement of statements" cdkDrag>
+        {{statement.name}}
+    </button>
+</div>
+
+<div class="headers">
+    <b>Expressions</b>
+</div>
+<div 
+    class="statement"
+    id="expressions"
+    cdkDropList
+    [cdkDropListData]="statements || []"
+    cdkDropListConnectedTo={{item?.uuid}}
+    (cdkDropListDropped)="drop($event)">
+    <button mat-raised-button color="primary" *ngFor="let expression of expressions" cdkDrag>
+        {{expression.name}}
+    </button>
+</div>
+
+<div class="headers">
+    <b>Block</b>
+</div>
+<div 
+    class="container"
+    id={{item?.uuid}}
+    cdkDropList
+    [cdkDropListData]="item?.expressions || []"
+    cdkDropListConnectedTo={{item?.uuid}}
+    (cdkDropListDropped)="drop($event)">
+    <button mat-raised-button color="primary" *ngFor="let block of item?.expressions" cdkDrag>
+        {{block.name}}
+    </button>
+</div>

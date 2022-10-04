@@ -1,7 +1,5 @@
 mat-expansion-panel-header {
-    height: 45px;
-    border: 1px solid purple;
-    font-size: 12px;
+    border: 1px solid gray;
 }
 
 mat-panel-description {

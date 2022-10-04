@@ -2,7 +2,7 @@
     <mat-expansion-panel>
         <mat-expansion-panel-header cdkDragHandle>
             <mat-panel-title >
-                <mat-label>Fallback</mat-label>
+                <mat-label>{{item.name}}</mat-label>
             </mat-panel-title>
 
             <mat-panel-description>
@@ -50,8 +50,8 @@
                 <app-parameter [item]="i" (deleteItemEvent)="deleteReturn($event)" (updateItemEvent)="updateReturn($event)"></app-parameter>
             </div>
 
-            <div class="row">
-                <div><u>Block</u></div>
+            <div class="col">
+                <app-block [item]="item.block"></app-block>
             </div>
         </div>
     </mat-expansion-panel>

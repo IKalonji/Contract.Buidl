@@ -5,8 +5,7 @@
     background-color: #fff;
     border-radius: 5px;
     padding: 0 10px 0 24px;
-    border: 1px solid purple;
-    font-size: 12px;
+    border: 1px solid gray;
 }
 
 .content:hover {
@@ -20,9 +19,10 @@
 }
 
 .content .col {
-    margin-top: 5px;
+    margin-top: 10px;
+    gap: 0;
 }
 
 mat-form-field {
-    height: 36px;
+    height: 44px;
 }

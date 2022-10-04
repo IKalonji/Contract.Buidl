@@ -32,6 +32,7 @@ export class EnumComponent implements OnInit {
       this.item.values.push(this.newValue);
     }
     this.updateItem();
+    this.newValue = "";
   }
 
   removeEnum(value: string) {

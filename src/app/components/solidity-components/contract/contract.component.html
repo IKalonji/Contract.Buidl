@@ -1,15 +1,12 @@
 <mat-accordion (click)="sendContext($event)" cdkDrag>
     <mat-expansion-panel>
         <mat-expansion-panel-header cdkDragHandle>
-            <mat-panel-title (click)="$event.stopPropagation();">
-                <mat-form-field>
-                    <mat-label>Contract Name...</mat-label>
-                    <input matInput type="text" [(ngModel)]="item.identifier">
-                </mat-form-field>
+            <mat-panel-title>
+                {{item.name}}
             </mat-panel-title>
 
-            <mat-panel-description (click)="$event.stopPropagation();">
-                <mat-checkbox [(ngModel)]="item.abstract">Abstract</mat-checkbox>
+            <mat-panel-description>
+                <div></div>
                 <div>
                     <a (click)="updateItem()">
                         <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
@@ -20,6 +17,13 @@
                 </div>
             </mat-panel-description>
         </mat-expansion-panel-header>
+        <div class="row">
+            <mat-form-field>
+                <mat-label>Contract Name...</mat-label>
+                <input matInput type="text" [(ngModel)]="item.identifier">
+            </mat-form-field>
+            <mat-checkbox [(ngModel)]="item.abstract">Abstract</mat-checkbox>
+        </div>
         <div class="content"
             id={{item.uuid}}
             cdkDropList

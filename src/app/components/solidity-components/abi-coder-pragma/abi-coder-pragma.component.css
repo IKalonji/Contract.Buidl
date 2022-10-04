@@ -1,20 +1,28 @@
-mat-radio-group {
-    font-size: 12px;
+.content {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     background-color: #fff;
     border-radius: 5px;
-    padding: 10px 10px 0 24px;
-    border: 1px solid purple;
+    padding: 0 10px 0 24px;
+    border: 1px solid gray;
 }
 
-mat-radio-group:hover {
+.content:hover {
     background-color: #fafafaec;
 }
 
-mat-radio-group div {
+.content div {
     display: flex;
     flex-direction: row;
     gap: 10px;
+    margin: 10px 0 5px 0;
+}
+
+.content .col {
+    gap: 0;
+}
+
+mat-form-field {
+    height: 44px;
 }

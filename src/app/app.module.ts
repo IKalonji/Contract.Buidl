@@ -48,7 +48,12 @@ import { EventComponent } from './components/contract-body-components/event/even
 import { ErrorComponent } from './components/contract-body-components/error/error.component';
 import { UsingComponent } from './components/contract-body-components/using/using.component';
 import { ParameterComponent } from './components/shared-components/parameter/parameter.component';
-import { BlockComponent } from './components/shared-components/parameter/block/block.component';
+import { BlockComponent } from './components/shared-components/block/block.component';
+import { BeforeExpressionComponent } from './components/shared-components/before-expression/before-expression.component';
+import { AfterExpressionComponent } from './components/shared-components/after-expression/after-expression.component';
+import { CompareExpressionComponent } from './components/shared-components/compare-expression/compare-expression.component';
+import { LogicExpressionComponent } from './components/shared-components/logic-expression/logic-expression.component';
+import { AssignmentExpressionComponent } from './components/shared-components/assignment-expression/assignment-expression.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +82,12 @@ import { BlockComponent } from './components/shared-components/parameter/block/b
     ErrorComponent,
     UsingComponent,
     ParameterComponent,
-    BlockComponent
+    BlockComponent,
+    BeforeExpressionComponent,
+    AfterExpressionComponent,
+    CompareExpressionComponent,
+    LogicExpressionComponent,
+    AssignmentExpressionComponent
   ],
   imports: [
     BrowserModule,

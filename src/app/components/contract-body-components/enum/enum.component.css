@@ -1,7 +1,5 @@
 mat-expansion-panel-header {
-    height: 45px;
-    border: 1px solid purple;
-    font-size: 12px;
+    border: 1px solid gray;
 }
 
 mat-panel-description {
@@ -21,14 +19,27 @@ mat-panel-description div {
     justify-content: space-between;
 }
 
-.member {
-    border: 1px solid purple;
-    padding: 0 5px;
-    border-radius: 5px;
-    margin-top: 5px;
-    font-weight: bold;
-}
-
 .icon {
     padding: 5px;
+}
+
+.row-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.member {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.member b {
+    margin-top: 4px;
 }

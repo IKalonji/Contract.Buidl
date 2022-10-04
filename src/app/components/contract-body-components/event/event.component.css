@@ -1,7 +1,5 @@
 mat-expansion-panel-header {
-    height: 45px;
-    border: 1px solid purple;
-    font-size: 12px;
+    border: 1px solid gray;
 }
 
 mat-panel-description {
@@ -12,7 +10,7 @@ mat-panel-description {
 mat-panel-description div {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 0;
 }
 
 mat-checkbox {
@@ -21,21 +19,17 @@ mat-checkbox {
 
 .row {
     margin-top: 5px;
-    font-size: 11px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 0 5px;
-    border: 1px solid purple;
-    border-radius: 5px;
 }
 
 .icon {
     margin-top: 10px;
 }
 
-.mat-input {
-    height: 26px;
+mat-form-field {
+    height: 44px;
 }
 
 .lbl {
@@ -46,4 +40,19 @@ mat-checkbox {
 
 .lbl mat-label {
     text-align: left;
+}
+
+.member {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.member b {
+    margin-top: 4px;
 }

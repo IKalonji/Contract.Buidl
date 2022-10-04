@@ -1,14 +1,11 @@
 <mat-accordion cdkDrag>
     <mat-expansion-panel>
         <mat-expansion-panel-header cdkDragHandle>
-            <mat-panel-title (click)="$event.stopPropagation();">
-                <mat-form-field>
-                    <mat-label>{{item.name}} Identifier...</mat-label>
-                    <input matInput type="text" [(ngModel)]="item.identifier">
-                </mat-form-field>
+            <mat-panel-title>
+                {{item.name}}
             </mat-panel-title>
 
-            <mat-panel-description (click)="$event.stopPropagation();">
+            <mat-panel-description>
                 <div></div>
                 <div>
                     <a (click)="updateItem()">
@@ -21,17 +18,26 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <div class="row icon">
+        <div class="row">
+            <mat-form-field>
+                <mat-label>{{item.name}} Identifier...</mat-label>
+                <input matInput type="text" [(ngModel)]="item.identifier">
+            </mat-form-field>
+        </div>
+
+        <div class="row">
             <mat-form-field>
                 <mat-label>Enum Value</mat-label>
                 <input matInput [(ngModel)]="newValue">
             </mat-form-field>
-            <div><mat-icon matTooltip="Add Enum Value..." (click)="addEnum()">add_box</mat-icon></div>
+            <mat-icon matTooltip="Add Enum Value..." (click)="addEnum()">add_box</mat-icon>
         </div>
 
-        <div class="row member icon" *ngFor="let value of item.values">
-            <div>{{value}}</div>
-            <mat-icon (click)="removeEnum(value)" color="warn" matTooltip="Delete item...">clear</mat-icon>
+        <div class="row-wrap" *ngIf="item.values && item.values.length > 0">
+            <div class="member" *ngFor="let value of item.values">
+                <b>{{value}}</b>
+                <mat-icon (click)="removeEnum(value)" color="warn" matTooltip="Delete item...">clear</mat-icon>
+            </div>
         </div>
     </mat-expansion-panel>
 </mat-accordion>

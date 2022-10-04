@@ -1,7 +1,5 @@
 mat-expansion-panel-header {
-    height: 45px;
-    border: 1px solid purple;
-    font-size: 12px;
+    border: 1px solid gray;
 }
 
 mat-panel-description {
@@ -11,8 +9,6 @@ mat-panel-description {
 
 mat-panel-description div {
     display: flex;
-    flex-direction: row;
-    gap: 10px;
 }
 
 .content {
@@ -23,4 +19,13 @@ mat-panel-description div {
     margin-top: 10px;
     background-color: rgba(211, 211, 211, 0.3);
     border-radius: 5px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+mat-checkbox {
+    margin-top: 10px;
 }

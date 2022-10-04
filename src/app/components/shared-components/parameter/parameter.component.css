@@ -5,8 +5,7 @@
     background-color: #fff;
     border-radius: 5px;
     padding-left: 5px;
-    border: 1px solid purple;
-    font-size: 11px;
+    border: 1px solid gray;
 }
 
 .content:hover {
@@ -23,11 +22,11 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    margin-top: 5px;
+    margin-top: 10px;
     text-align: right;
 }
 
 mat-form-field {
-    height: 36px;
+    height: 44px;
     width: auto;;
 }

@@ -1,6 +1,5 @@
 mat-expansion-panel-header {
-    height: 38px;
-    border: 1px solid purple;
+    border: 1px solid gray;
 }
 
 mat-panel-description {
@@ -10,8 +9,6 @@ mat-panel-description {
 
 mat-panel-description div {
     display: flex;
-    flex-direction: row;
-    gap: 10px;
 }
 
 .content {

@@ -1,7 +1,5 @@
 mat-expansion-panel-header {
-    height: 45px;
-    border: 1px solid purple;
-    font-size: 12px;
+    border: 1px solid gray;
 }
 
 mat-panel-description {
@@ -11,8 +9,6 @@ mat-panel-description {
 
 mat-panel-description div {
     display: flex;
-    flex-direction: row;
-    gap: 10px;
 }
 
 .content {
@@ -29,4 +25,10 @@ mat-panel-description div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.col {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }

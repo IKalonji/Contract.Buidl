@@ -13,7 +13,7 @@
 .col-left {
     display: table-cell;
     background-color: lightslategray;
-    width: 28%;
+    width: 20%;
     padding: 5px;
     overflow-y: auto;
     text-overflow: ellipsis;
@@ -28,7 +28,7 @@
 .col-right {
     display: table-cell;
     background-color: darkgray;
-    width: 72%;
+    width: 80%;
     padding: 5px;
     overflow-y: auto;
 }
@@ -76,6 +76,16 @@ a {
 
 .btn-preview {
     position: absolute;
-    bottom: 15px;
-    right: 10px;
+    bottom: 40px;
+    right: 40px;
+}
+
+@media only screen and (min-width: 1260px) {
+    .col-left {
+        width: 12%;
+    }
+
+    .col-right {
+        width: 88%;
+    }
 }
