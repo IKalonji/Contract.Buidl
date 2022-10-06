@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CompareExpression } from 'src/app/grammer/source-unit';
 
 @Component({
   selector: 'app-compare-expression',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompareExpressionComponent implements OnInit {
 
+  @Output() deleteItemEvent = new EventEmitter<CompareExpression>();
+  @Output() updateItemEvent = new EventEmitter<CompareExpression>();
+  @Input() item!: CompareExpression;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  deleteItem() {
+    this.deleteItemEvent.emit(this.item);
+  }
+
+  updateItem() {
+    this.updateItemEvent.emit(this.item);
   }
 
 }

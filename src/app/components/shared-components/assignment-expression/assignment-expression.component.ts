@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AssignmentExpression } from 'src/app/grammer/source-unit';
 
 @Component({
   selector: 'app-assignment-expression',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AssignmentExpressionComponent implements OnInit {
 
+  @Output() deleteItemEvent = new EventEmitter<AssignmentExpression>();
+  @Output() updateItemEvent = new EventEmitter<AssignmentExpression>();
+  @Input() item!: AssignmentExpression;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  deleteItem() {
+    this.deleteItemEvent.emit(this.item);
+  }
+
+  updateItem() {
+    this.updateItemEvent.emit(this.item);
   }
 
 }

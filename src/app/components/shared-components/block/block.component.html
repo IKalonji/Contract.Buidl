@@ -1,44 +1,72 @@
-<div class="headers">
-    <b>Statements</b>
-</div>
-<div 
-    class="statement"
-    id="statement"
-    cdkDropList
-    [cdkDropListData]="statements || []"
-    cdkDropListConnectedTo={{item?.uuid}}
-    (cdkDropListDropped)="drop($event)">
-    <button mat-raised-button color="primary" *ngFor="let statement of statements" cdkDrag>
-        {{statement.name}}
-    </button>
-</div>
+<div class="row">
+    <div><b>Statements</b></div>
+    <div><b>Block</b></div>
+    <div><b>Expressions</b></div>
+  </div>
+  
 
-<div class="headers">
-    <b>Expressions</b>
-</div>
-<div 
-    class="statement"
-    id="expressions"
-    cdkDropList
-    [cdkDropListData]="statements || []"
-    cdkDropListConnectedTo={{item?.uuid}}
-    (cdkDropListDropped)="drop($event)">
-    <button mat-raised-button color="primary" *ngFor="let expression of expressions" cdkDrag>
-        {{expression.name}}
-    </button>
-</div>
+  <mat-drawer-container class="container">
+    <mat-drawer 
+        #left_drawer 
+        mode="side"
+        id="statement"
+        cdkDropList
+        [cdkDropListData]="statements || []"
+        cdkDropListConnectedTo="block"
+        (cdkDropListDropped)="drop($event)">
+        <div class="my-5" *ngFor="let s of statements" cdkDrag>
+            <div class="col">
+                <mat-icon>drag_indicator</mat-icon>
+                <mat-label>{{s}}</mat-label>
+            </div>
+        </div>
+    </mat-drawer>
 
-<div class="headers">
-    <b>Block</b>
-</div>
-<div 
-    class="container"
-    id={{item?.uuid}}
-    cdkDropList
-    [cdkDropListData]="item?.expressions || []"
-    cdkDropListConnectedTo={{item?.uuid}}
-    (cdkDropListDropped)="drop($event)">
-    <button mat-raised-button color="primary" *ngFor="let block of item?.expressions" cdkDrag>
-        {{block.name}}
-    </button>
-</div>
+    <mat-drawer 
+        #right_drawer mode="side" 
+        position="end"
+        id="expression"
+        cdkDropList
+        [cdkDropListData]="expressions || []"
+        cdkDropListConnectedTo="block"
+        (cdkDropListDropped)="drop($event)">
+        <div id="opened" class="my-5" *ngFor="let e of expressions" cdkDrag>
+            <div class="col">
+                <mat-icon>drag_indicator</mat-icon>
+                <mat-label>{{e}}</mat-label>
+            </div>
+        </div>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div class="left" (mouseenter)="left_drawer.toggle()">
+            <mat-icon>drag_handle</mat-icon>
+        </div>
+        <div 
+            class="center"
+            id="block"
+            cdkDropList
+            [cdkDropListData]="item?.expressions || []"
+            cdkDropListConnectedTo="block"
+            (cdkDropListDropped)="drop($event)" >
+            <div *ngFor="let e of item?.expressions">
+                <app-after-expression *ngIf="e.name == 'AfterExpression'" [item]="e"></app-after-expression>
+                <app-assignment-expression *ngIf="e.name == 'AssignmentExpression'" [item]="e"></app-assignment-expression>
+                <app-before-expression *ngIf="e.name == 'BeforeExpression'" [item]="e"></app-before-expression>
+                <app-compare-expression *ngIf="e.name == 'CompareExpression'" [item]="e"></app-compare-expression>
+                <app-logic-expression *ngIf="e.name == 'LogicalExpression'" [item]="e"></app-logic-expression>
+                <app-literal-expression *ngIf="e.name == 'LiteralExpression'" [item]="e"></app-literal-expression>
+                <app-if-statement *ngIf="e.name == 'IfStatement'" [item]="e"></app-if-statement>
+                <app-for-loop *ngIf="e.name == 'ForStatement'" [item]="e"></app-for-loop>
+                <app-while-loop *ngIf="e.name == 'WhileStatement'" [item]="e"></app-while-loop>
+                <app-do-while-loop *ngIf="e.name == 'DoWhileStatement'" [item]="e"></app-do-while-loop>
+                <app-continue-statement *ngIf="e.name == 'ContinueStatement'" [item]="e"></app-continue-statement>
+                <app-break-statement *ngIf="e.name == 'BreakStatement'" [item]="e"></app-break-statement>
+                <app-try-catch-statement *ngIf="e.name == 'TryStatement'" [item]="e"></app-try-catch-statement>
+                <app-return-statement *ngIf="e.name == 'ReturnStatement'" [item]="e"></app-return-statement>
+            </div>
+        </div>
+        <div class="right" (mouseenter)="right_drawer.toggle()">
+            <mat-icon>drag_handle</mat-icon>
+        </div>
+    </mat-drawer-content>
+  </mat-drawer-container>

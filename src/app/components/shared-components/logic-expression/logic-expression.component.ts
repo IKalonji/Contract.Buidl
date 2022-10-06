@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LogicalExpression } from 'src/app/grammer/source-unit';
 
 @Component({
   selector: 'app-logic-expression',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogicExpressionComponent implements OnInit {
 
+  @Output() deleteItemEvent = new EventEmitter<LogicalExpression>();
+  @Output() updateItemEvent = new EventEmitter<LogicalExpression>();
+  @Input() item!: LogicalExpression;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  deleteItem() {
+    this.deleteItemEvent.emit(this.item);
+  }
+
+  updateItem() {
+    this.updateItemEvent.emit(this.item);
   }
 
 }

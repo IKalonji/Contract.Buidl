@@ -54,6 +54,16 @@ import { AfterExpressionComponent } from './components/shared-components/after-e
 import { CompareExpressionComponent } from './components/shared-components/compare-expression/compare-expression.component';
 import { LogicExpressionComponent } from './components/shared-components/logic-expression/logic-expression.component';
 import { AssignmentExpressionComponent } from './components/shared-components/assignment-expression/assignment-expression.component';
+import { LiteralExpressionComponent } from './components/shared-components/literal-expression/literal-expression.component';
+import { ExpressionComponent } from './components/shared-components/expression/expression.component';
+import { IfStatementComponent } from './components/shared-components/if-statement/if-statement.component';
+import { ForLoopComponent } from './components/shared-components/for-loop/for-loop.component';
+import { WhileLoopComponent } from './components/shared-components/while-loop/while-loop.component';
+import { DoWhileLoopComponent } from './components/shared-components/do-while-loop/do-while-loop.component';
+import { ContinueStatementComponent } from './components/shared-components/continue-statement/continue-statement.component';
+import { BreakStatementComponent } from './components/shared-components/break-statement/break-statement.component';
+import { ReturnStatementComponent } from './components/shared-components/return-statement/return-statement.component';
+import { TryCatchStatementComponent } from './components/shared-components/try-catch-statement/try-catch-statement.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +97,17 @@ import { AssignmentExpressionComponent } from './components/shared-components/as
     AfterExpressionComponent,
     CompareExpressionComponent,
     LogicExpressionComponent,
-    AssignmentExpressionComponent
+    AssignmentExpressionComponent,
+    LiteralExpressionComponent,
+    ExpressionComponent,
+    IfStatementComponent,
+    ForLoopComponent,
+    WhileLoopComponent,
+    DoWhileLoopComponent,
+    ContinueStatementComponent,
+    BreakStatementComponent,
+    ReturnStatementComponent,
+    TryCatchStatementComponent
   ],
   imports: [
     BrowserModule,

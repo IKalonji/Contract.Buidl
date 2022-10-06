@@ -645,120 +645,86 @@ class Operator extends BaseItem {
 
 class Expression extends BaseItem {
     operator?: string = "";
+    leftExp?: Expression;
+    rightExp?: Expression;
+
+    constructor(name: string) {
+        super(name);
+    }
+
+    override generateStatement(): string {
+        this.output = this.leftExp ? this.leftExp.generateStatement() : "";
+        this.output += ` ${this.operator} `;
+        this.output += this.rightExp ? this.rightExp.generateStatement() : "";
+        return this.output;
+    }
+}
+
+class LiteralExpression extends Expression {
+    value?: string = "";
+    constructor() {
+        super("LiteralExpression");
+    }
+
+    override generateStatement(): string {
+        if(this.value) {
+            this.output = this.value;
+        }
+        return this.output;
+    }
 }
 
 class AfterExpression extends Expression {
-    left?: string = "";
+    literal?: LiteralExpression;
 
     constructor() {
         super("AfterExpression");
     }
 
     override generateStatement(): string {
-        if(this.operator && this.left) {
-            this.output = this.left + this.operator + ";";
+        if(this.literal) {
+            this.output = this.literal.generateStatement() + this.operator + ";";
         }
         return this.output;
     }
 }
 
 class BeforeExpression extends Expression {
-    right?: string = "";
+    literal?: LiteralExpression;
 
     constructor() {
         super("BeforeExpression");
     }
 
     override generateStatement(): string {
-        if(this.operator && this.right) {
-            this.output = this.operator + this.right + ";";
+        if(this.literal) {
+            this.output = this.operator + this.literal.generateStatement() + ";";
         }
         return this.output;
     }
 }
 
 class LogicalExpression extends Expression {
-    left?: string = "";
-    right?: string = "";
-    leftExp?: Expression;
-    rightExp?: Expression;
-
     constructor() {
         super("LogicalExpression");
-    }
-
-    override generateStatement(): string {
-        if(this.leftExp) {
-            this.output = this.leftExp.generateStatement();
-        } else {
-            this.output = this.left ?? "";
-        }
-
-        this.output += ` ${this.operator} `;
-
-        if(this.rightExp) {
-            this.output += this.rightExp.generateStatement();
-        } else {
-            this.output += this.right ?? "";
-        }
-        return this.output;
     }
 }
 
 class CompareExpression extends Expression {
-    left?: string = "";
-    right?: string = "";
-    leftExp?: Expression;
-    rightExp?: Expression;
-
     constructor() {
         super("CompareExpression");
     }
-
-    override generateStatement(): string {
-        if(this.leftExp) {
-            this.output = this.leftExp.generateStatement();
-        } else {
-            this.output = this.left ?? "";
-        }
-
-        this.output += ` ${this.operator} `;
-
-        if(this.rightExp) {
-            this.output += this.rightExp.generateStatement();
-        } else {
-            this.output += this.right ?? "";
-        }
-        return this.output;
-    }
 }
 
-class AssigmentExpression extends Expression {
-    left?: string = "";
-    right?: string = "";
-    rightExp?: Expression;
-
+class AssignmentExpression extends Expression {
     constructor() {
-        super("AssigmentExpression");
-    }
-
-    override generateStatement(): string {
-        this.output = this.left ?? "";
-
-        this.output += ` ${this.operator} `;
-
-        if(this.rightExp) {
-            this.output += this.rightExp.generateStatement();
-        } else {
-            this.output += this.right ?? "";
-        }
-        return this.output;
+        super("AssignmentExpression");
     }
 }
 
 class IfStatement extends BaseItem {
-    ifConditions: Expression[] = [];
-    ifStatements: Block[] = [];
+    ifConditions?: Expression[] = [];
+    ifStatements?: Block[] = [];
     elseStatement?: Block;
 
     constructor() {
@@ -766,7 +732,7 @@ class IfStatement extends BaseItem {
     }
     
     override generateStatement(): string {
-        if(this.ifConditions.length > 0) {
+        if(this.ifConditions && this.ifConditions.length > 0 && this.ifStatements && this.ifStatements.length > 0) {
             this.output += `if (${this.ifConditions[0].generateStatement()}) ${this.ifStatements[0].generateStatement()}`;
             for(let i = 1; i < this.ifConditions.length; i++) {
                 this.output += ` else if (${this.ifConditions[i].generateStatement()}) ${this.ifStatements[i].generateStatement()}`;
@@ -823,7 +789,7 @@ class DoWhileStatement extends BaseItem {
     }
 }
 
-class ContinueStatement extends  BaseItem {
+class ContinueStatement extends BaseItem {
     constructor() {
         super("ContinueStatement");
     }
@@ -833,7 +799,7 @@ class ContinueStatement extends  BaseItem {
     }
 }
 
-class BreakStatement extends  BaseItem {
+class BreakStatement extends BaseItem {
     constructor() {
         super("BreakStatement");
     }
@@ -888,7 +854,7 @@ class TryStatement extends BaseItem {
     }
 }
 
-class ReturnStatement extends  BaseItem {
+class ReturnStatement extends BaseItem {
     expression?: Expression;
 
     constructor() {
@@ -920,5 +886,5 @@ export {
     UserDefinedValueType, EventParameter, ErrorParameter,  Operator, Expression, 
     ReturnStatement, TryStatement, CatchClause, BreakStatement, ContinueStatement, DoWhileStatement,
     WhileStatement, ForStatement, IfStatement, AfterExpression, BeforeExpression, CompareExpression,
-    LogicalExpression, AssigmentExpression
+    LogicalExpression, AssignmentExpression, LiteralExpression
 }

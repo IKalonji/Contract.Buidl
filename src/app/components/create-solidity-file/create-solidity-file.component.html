@@ -18,7 +18,8 @@
         cdkDropList
         [cdkDropListData]="items"
         cdkDropListConnectedTo="selected"
-        (cdkDropListDropped)="drop($event)" (click)="changeContext(defaultItem)">
+        (cdkDropListDropped)="drop($event)" 
+        (click)="changeContext(defaultItem)">
         <div class="my-5" *ngFor="let item of items">
             <div *ngIf="item.name == 'License'">
                 <app-license (deleteItemEvent)="deleteItem($event)" (updateItemEvent)="updateItem($event)" [item]="item"></app-license>
