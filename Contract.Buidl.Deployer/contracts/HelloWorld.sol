@@ -1,0 +1,1 @@
+contract HelloWorld {event Print(string out); function newFunction() public { emit Print('Hello, World!');}}
