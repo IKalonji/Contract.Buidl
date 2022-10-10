@@ -4,6 +4,7 @@ import { BaseItem, License, Pragma, Comment, Version, ABICoderPragma, Import,
   Constant, Contract, Interface, Library, Constructor,  } 
   from "../../grammer/source-unit";
 import { FileItems, ContractItems, ConstructorItems } from 'src/app/constants/solidity-syntax';
+import { DeployService } from 'src/app/services/deploy.service';
 //const fs = require('fs');
 
 @Component({
@@ -13,7 +14,7 @@ import { FileItems, ContractItems, ConstructorItems } from 'src/app/constants/so
 })
 export class CreateSolidityFileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private deploymentService: DeployService) { }
 
   fileItems = FileItems;
   contractItems = ContractItems;
@@ -122,6 +123,7 @@ export class CreateSolidityFileComponent implements OnInit {
       }
     })*/
     console.log(output);
+    this.deploymentService.deployContract(output);
   }
 
   splitStringByCaps(text: string): string {

@@ -1,0 +1,1 @@
+export const contract_name = {name:"HelloWorld"};
