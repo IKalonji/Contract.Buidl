@@ -113,13 +113,8 @@ export class CreateSolidityFileComponent implements OnInit {
   previewFile() {
     let output = "";
     this.items.forEach(i => output += `\n${i.generateStatement()}`);
-    /*fs.writeFileSync("output.sol", output, function(err: any) {
-      if(err) {
-        console.log("Error Occurred!");
-      }
-    })*/
     console.log(output);
-    //this.deploymentService.deployContract(output);
+    this.deploymentService.deployContract(output);
   }
 
   splitStringByCaps(text: string): string {
