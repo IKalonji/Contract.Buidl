@@ -53,6 +53,7 @@
     background-color: lightgray;
     padding: 8px 0;
     border-radius: 5px;
+    cursor: move;
 }
 
 mat-label {
@@ -68,7 +69,6 @@ mat-label {
 
 mat-icon {
     color: gray;
-    cursor: move;
 }
 
 a {

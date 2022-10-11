@@ -24,7 +24,7 @@
                     (cdkDropListDropped)="drop($event)">
                     <div class="my-5" *ngFor="let s of statements" cdkDrag>
                         <div class="col">
-                            <mat-icon cdkDragHandle>drag_indicator</mat-icon>
+                            <mat-icon>drag_indicator</mat-icon>
                             <mat-label>{{s}}</mat-label>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                     (cdkDropListDropped)="drop($event)">
                     <div id="opened" class="my-5" *ngFor="let e of expressions" cdkDrag>
                         <div class="col">
-                            <mat-icon cdkDragHandle>drag_indicator</mat-icon>
+                            <mat-icon>drag_indicator</mat-icon>
                             <mat-label>{{e}}</mat-label>
                         </div>
                     </div>

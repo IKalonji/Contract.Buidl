@@ -7,7 +7,7 @@
         (cdkDropListDropped)="drop($event)">
         <div class="my-5" *ngFor="let option of options" cdkDrag>
             <div class="col">
-                <mat-icon cdkDragHandle>drag_indicator</mat-icon>
+                <mat-icon>drag_indicator</mat-icon>
                 <mat-label>{{splitStringByCaps(option.name)}}</mat-label>
             </div>
         </div>
