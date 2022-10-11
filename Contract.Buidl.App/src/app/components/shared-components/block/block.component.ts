@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Statements, Expressions } from 'src/app/constants/solidity-syntax';
-import { AfterExpression, AssignmentExpression, BaseItem, BeforeExpression, Block, BreakStatement, CompareExpression, ContinueStatement, DoWhileStatement, Expression, ForStatement, IfStatement, LiteralExpression, LogicalExpression, ReturnStatement, TryStatement, WhileStatement } from 'src/app/grammer/source-unit';
+import { AfterExpression, AssignmentExpression, BaseItem, BeforeExpression, Block, BreakStatement, CompareExpression, ContinueStatement, DoWhileStatement, Expression, ForStatement, IfStatement, LiteralExpression, LogicalExpression, ReturnStatement, TryStatement, Variable, WhileStatement } from 'src/app/grammer/source-unit';
 import { CdkDragDrop, copyArrayItem, DragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -69,8 +69,10 @@ export class BlockComponent implements OnInit {
         case "Return":
           this.item?.expressions?.push(new ReturnStatement());
           break;
+        case "Variable":
+          this.item?.expressions?.push(new Variable());
+          break;
       }
-      console.log(this.item?.expressions);
     }
   }
 

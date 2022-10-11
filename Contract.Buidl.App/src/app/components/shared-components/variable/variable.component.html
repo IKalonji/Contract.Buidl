@@ -1,0 +1,41 @@
+<div class="row" cdkDragLockAxis="y" cdkDrag>
+    <div class="fields">
+        <mat-icon cdkDragHandle>drag_indicator</mat-icon>
+
+        <mat-form-field>
+            <mat-label>Type</mat-label>
+            <input type="text" matInput [matAutocomplete]="auto" [(ngModel)]="item.type" required>
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Data location</mat-label>
+            <mat-select [(ngModel)]="item.location" required>
+                <mat-option *ngFor="let l of locations" value={{l}}>{{l}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field>
+            <mat-label>Identifier</mat-label>
+            <input matInput type="text" [(ngModel)]="item.identifier" required>
+        </mat-form-field>
+        
+        <span></span>
+
+        <mat-form-field>
+            <mat-label>Value (optional)</mat-label>
+            <input matInput type="text" [(ngModel)]="item.value">
+        </mat-form-field>
+    </div>
+
+    <div class="actions">
+        <a (click)="updateItem()">
+            <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
+        </a>
+        <a (click)="deleteItem()">
+            <mat-icon color="warn" matTooltip="Delete item...">clear</mat-icon>
+        </a>
+    </div>
+</div>

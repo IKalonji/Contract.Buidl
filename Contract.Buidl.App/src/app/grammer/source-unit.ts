@@ -220,7 +220,7 @@ class Constructor extends BaseItem {
     payable?: boolean = false;
     internal?: boolean = false;
     public?: boolean = false;
-    block?: Block = new Block()
+    block?: Block = new Block();
 
     constructor() {
         super("Constructor");
@@ -230,8 +230,8 @@ class Constructor extends BaseItem {
         let paramList = this.parameters?.map(p => p.generateStatement());
         let paramListString = paramList?.join(", ");
         
-        this.output = `constructor (${paramListString}) ${this.payable ? "payable" : ""} ${
-            this.internal ? "internal" : ""} ${this.public ? "public" : ""}`;
+        this.output = `constructor (${paramListString})${this.payable ? " payable" : ""}${
+            this.internal ? " internal" : ""}${this.public ? " public" : ""}`;
         this.output += this.block?.generateStatement();
         return this.output;
     }
@@ -264,6 +264,7 @@ class Variable extends BaseItem {
     type?: string = "";
     location?: string = "";
     identifier?: string = "";
+    value?: string;
 
     constructor() {
         super("Variable");
@@ -279,7 +280,20 @@ class Variable extends BaseItem {
         } else if(this.type && !this.location && this.identifier) {
             this.output = [this.type, this.identifier].join(" ");
         }
-        return this.output
+
+        if(this.value) {
+            switch(this.type) {
+                case "string":
+                    this.output += " = \"" + this.value + "\"";
+                    break;
+                case "hexadecimal":
+                    this.output += ` = hex"${this.value}"`;
+                    break;
+                default:
+                    this.output += ` = ${this.value}`
+            }
+        }
+        return this.output + ";";
     }
 }
 
@@ -662,13 +676,24 @@ class Expression extends BaseItem {
 
 class LiteralExpression extends Expression {
     value?: string = "";
+    type?: string = "";
+
     constructor() {
         super("LiteralExpression");
     }
 
     override generateStatement(): string {
-        if(this.value) {
-            this.output = this.value;
+        if(this.value && this.type) {
+            switch(this.type) {
+                case "String":
+                    this.output = "\"" + this.value + "\"";
+                    break;
+                case "Hexadecimal":
+                    this.output = `hex"${this.value}"`;
+                    break;
+                default:
+                    this.output = this.value;
+            }
         }
         return this.output;
     }
@@ -874,7 +899,7 @@ class Block extends BaseItem {
     }
 
     override generateStatement(): string {
-        this.output = `{\n${this.expressions?.map(e => e.generateStatement()).join(";\n")};\n}`;
+        this.output = ` {\n${this.expressions?.map(e => e.generateStatement()).join("\n")}\n}`;
         return this.output
     }
 }

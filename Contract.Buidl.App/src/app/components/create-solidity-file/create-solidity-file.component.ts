@@ -106,11 +106,7 @@ export class CreateSolidityFileComponent implements OnInit {
 
   geItemsIds() {
     let ids = this.items.filter(i => i.name == "Contract").map(c => c.uuid);
-    let constructorIds = (this.items.filter(i => i.name == "Contract") as Contract[]).map(
-      c => c.elements).filter(e => e?.filter(b => b.name == "Constructor")).map(
-        o => o ? (o[0] ? o[0].uuid : "") : "");
     ids.push("selected");
-    ids = ids.concat(constructorIds);
     return ids;
   }
 
@@ -123,7 +119,7 @@ export class CreateSolidityFileComponent implements OnInit {
       }
     })*/
     console.log(output);
-    this.deploymentService.deployContract(output);
+    //this.deploymentService.deployContract(output);
   }
 
   splitStringByCaps(text: string): string {

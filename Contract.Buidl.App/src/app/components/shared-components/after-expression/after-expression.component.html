@@ -1,1 +1,26 @@
-<p>after-expression works!</p>
+<div class="row" cdkDragLockAxis="y" cdkDrag>
+    <div class="fields">
+        <mat-icon cdkDragHandle>drag_indicator</mat-icon>
+
+        <mat-form-field>
+            <mat-label>Literal</mat-label>
+            <input matInput type="text" [(ngModel)]="item.literal!.value">
+        </mat-form-field>
+    
+        <mat-form-field>
+            <mat-label>Select operator</mat-label>
+            <mat-select [(ngModel)]="item.operator" required>
+                <mat-option *ngFor="let o of operators" value={{o.Value}}>{{o.Name}} ({{o.Value}})</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="actions">
+        <a (click)="updateItem()">
+            <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
+        </a>
+        <a (click)="deleteItem()">
+            <mat-icon color="warn" matTooltip="Delete item...">clear</mat-icon>
+        </a>
+    </div>
+</div>

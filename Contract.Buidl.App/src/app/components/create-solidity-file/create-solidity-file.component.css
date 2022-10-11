@@ -68,6 +68,7 @@ mat-label {
 
 mat-icon {
     color: gray;
+    cursor: move;
 }
 
 a {
