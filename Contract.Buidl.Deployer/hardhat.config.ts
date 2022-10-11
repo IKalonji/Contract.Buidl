@@ -16,10 +16,10 @@ const config: HardhatUserConfig = {
       accounts: [process.env.PRIVATE_KEY_SECOND!]
     },
     testnet: {
-      url: `https://testnet-rpc.coinex.net`,
-      chainId: 53,
-      gasPrice: 20000000000,
-      accounts: [process.env.PRIVATE_KEY_SECOND!]
+      url: "https://testnet-rpc.coinex.net/",
+      accounts: {
+        mnemonic: process.env.MNEMONIC
+      }
     }
   }
 };

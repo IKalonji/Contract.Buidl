@@ -21,9 +21,8 @@ def deploy():
     }
     """
     body = request.get_json()
-    # randomized_filename = random.randint(1,100000)
-    randomized_filename = body["name"]
-    name = "{"+"name:"+"\""+str(randomized_filename)+"\""+"}"
+    contract_name = body["name"]
+    name = "{"+"name:"+"\""+str(contract_name)+"\""+"}"
     print("REQUEST BODY:")
     print(body)
 
@@ -31,13 +30,13 @@ def deploy():
     with open(f"scripts/ContractName.ts", "w") as file:
         file.write(f"export const contract_name = {name};")
 
-    print(f"WRITING THE CONTRACT TO {randomized_filename}:")
-    with open(f"contracts/{randomized_filename}.sol", "w") as file:
+    print(f"WRITING THE CONTRACT TO {contract_name}:")
+    with open(f"contracts/{contract_name}.sol", "w") as file:
         file.write(body["contract"])
     
 
     print("DEPLOYING THE CONTRACT:")
-    os.system("yarn hardhat run --network goerli scripts/Deployment.ts")
+    os.system("yarn hardhat run --network testnet scripts/Deployment.ts")
 
     return ""
 
