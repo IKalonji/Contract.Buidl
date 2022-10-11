@@ -1,1 +1,14 @@
-<p>break-statement works!</p>
+<div class="row" cdkDragLockAxis="y" cdkDrag>
+    <mat-icon class="drag" cdkDragHandle>drag_indicator</mat-icon>
+
+    <b>-- Break --</b>
+    
+    <div class="actions">
+        <a (click)="updateItem()">
+            <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
+        </a>
+        <a (click)="deleteItem()">
+            <mat-icon color="warn" matTooltip="Delete item...">clear</mat-icon>
+        </a>
+    </div>
+</div>

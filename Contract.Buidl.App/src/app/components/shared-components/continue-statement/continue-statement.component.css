@@ -1,0 +1,21 @@
+.row {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(211, 211, 211, 0.3);
+    border-radius: 5px;
+    padding-top: 5px;
+}
+
+.row b {
+    margin-top: 4px;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+}
+
+.drag {
+    color: gray;
+    cursor: move;
+}

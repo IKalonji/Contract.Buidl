@@ -1,10 +1,14 @@
+mat-expansion-panel-header {
+    border: 1px solid gray;
+}
+
 mat-drawer-container {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    border: 1px solid gray;
+    border: 1px solid lightgray;
     border-radius: 5px;
-    min-height: 440px;
+    min-height: 380px;
 }
 
 mat-drawer {
@@ -19,7 +23,7 @@ mat-drawer {
 mat-drawer-content {
     display: flex;
     justify-content: space-between;
-    min-height: 440px;
+    min-height: 380px;
 }
 
 .left {
@@ -43,7 +47,7 @@ mat-drawer-content {
 .center {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     width: 100%;
     padding: 5px;
 }
@@ -64,6 +68,7 @@ button {
     background-color: lightgray;
     padding: 8px 0;
     border-radius: 5px;
+    cursor: move;
 }
 
 .col mat-label {
@@ -72,7 +77,7 @@ button {
     font-weight: bold;
 }
 
-.col mat-icon {
+mat-icon {
     color: gray;
 }
 

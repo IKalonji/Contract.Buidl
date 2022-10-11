@@ -94,7 +94,7 @@ const Statements: any [] = [
 ];
 
 const Expressions: any [] = [
-    "Before", "After", "Compare", "Assignment", "Logic", "Literal"
+    "Before", "After", "Compare", "Assignment", "Logic", "Literal", "Variable"
 ];
 
 

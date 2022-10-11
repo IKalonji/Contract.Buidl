@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AfterExpression } from 'src/app/grammer/source-unit';
+import { AfterOperators } from 'src/app/constants/solidity-syntax';
+import { AfterExpression, LiteralExpression } from 'src/app/grammer/source-unit';
 
 @Component({
   selector: 'app-after-expression',
@@ -12,9 +13,14 @@ export class AfterExpressionComponent implements OnInit {
   @Output() updateItemEvent = new EventEmitter<AfterExpression>();
   @Input() item!: AfterExpression;
 
+  operators: any[] = AfterOperators;
+
   constructor() { }
 
   ngOnInit(): void {
+    if(!this.item.literal) {
+      this.item.literal = new LiteralExpression();
+    }
   }
 
   deleteItem() {
