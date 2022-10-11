@@ -752,7 +752,7 @@ class ForStatement extends BaseItem {
     iteration?: Expression;
 
     constructor() {
-        super("WhileStatement");
+        super("ForStatement");
     }
 
     override generateStatement(): string {
