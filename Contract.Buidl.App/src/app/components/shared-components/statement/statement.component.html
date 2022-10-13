@@ -1,0 +1,56 @@
+<mat-accordion cdkDragLockAxis="y" cdkDrag>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header cdkDragHandle>
+            <mat-panel-title >
+                <mat-label>{{splitStringByCaps(item.name)}}</mat-label>
+            </mat-panel-title>
+
+            <mat-panel-description>
+                <div></div>
+                <div (click)="$event.stopPropagation();">
+                    <a (click)="updateItem()">
+                        <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
+                    </a>
+                    <a (click)="deleteItem()">
+                        <mat-icon color="warn" matTooltip="Delete item...">clear</mat-icon>
+                    </a>
+                </div>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div class="content">
+            <div class="row">
+                <div class="fields">
+                    <mat-radio-group (change)="optionChanged()" [(ngModel)]="item.type">
+                        <mat-radio-button value="If" labelPosition="before">If</mat-radio-button>
+                        <mat-radio-button value="For" labelPosition="before">For</mat-radio-button>
+                        <mat-radio-button value="While" labelPosition="before">While</mat-radio-button>
+                        <mat-radio-button value="DoWhile" labelPosition="before">Do While</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            
+                <div class="fields">
+                    <mat-form-field>
+                        <mat-label>Literal</mat-label>
+                        <input matInput type="text" [(ngModel)]="item.leftExp!.value" required>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <mat-label>Select operator</mat-label>
+                        <mat-select [(ngModel)]="item.expression!.operator">
+                            <mat-option *ngFor="let o of operators" value={{o.Value}}>{{o.Name}} ({{o.Value}})</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <mat-label>Literal</mat-label>
+                        <input matInput type="text" [(ngModel)]="item.rightExp!.value">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <app-block [item]="item.block"></app-block>
+        </div>
+
+    </mat-expansion-panel>
+</mat-accordion>

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Statements, Expressions } from 'src/app/constants/solidity-syntax';
-import { AfterExpression, AssignmentExpression, BaseItem, BeforeExpression, Block, BreakStatement, CompareExpression, ContinueStatement, DoWhileStatement, Expression, ForStatement, IfStatement, LiteralExpression, LogicalExpression, ReturnStatement, TryStatement, Variable, WhileStatement } from 'src/app/grammer/source-unit';
+import { AfterExpression, AssignmentExpression, BaseItem, BeforeExpression, Block, BreakStatement, CompareExpression, ContinueStatement, DoWhileStatement, Expression, ForStatement, IfStatement, LiteralExpression, LogicalExpression, ReturnStatement, Statement, TryStatement, Variable, WhileStatement } from 'src/app/grammer/source-unit';
 import { CdkDragDrop, copyArrayItem, DragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -14,8 +14,7 @@ export class BlockComponent implements OnInit {
   @Output() updateItemEvent = new EventEmitter<Block>();
   @Input() item?: Block;
 
-  statements: BaseItem [] = Statements;
-  expressions: Expression[] = Expressions;
+  expressions: string [] = Expressions;
 
   constructor() { }
 
@@ -27,36 +26,6 @@ export class BlockComponent implements OnInit {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       switch(event.previousContainer.data[event.previousIndex]) {
-        case "After":
-          this.item?.expressions?.push(new AfterExpression());
-          break;
-        case "Assignment":
-          this.item?.expressions?.push(new AssignmentExpression());
-          break;
-        case "Before":
-          this.item?.expressions?.push(new BeforeExpression());
-          break;
-        case "Compare":
-          this.item?.expressions?.push(new CompareExpression());
-          break;
-        case "Logic":
-          this.item?.expressions?.push(new LogicalExpression());
-          break;
-        case "Literal":
-          this.item?.expressions?.push(new LiteralExpression());
-          break;
-        case "If":
-          this.item?.expressions?.push(new IfStatement());
-          break;
-        case "For":
-          this.item?.expressions?.push(new ForStatement());
-          break;
-        case "While":
-          this.item?.expressions?.push(new WhileStatement());
-          break;
-        case "Do-While":
-          this.item?.expressions?.push(new DoWhileStatement());
-          break;
         case "Continue":
           this.item?.expressions?.push(new ContinueStatement());
           break;
@@ -71,6 +40,12 @@ export class BlockComponent implements OnInit {
           break;
         case "Variable":
           this.item?.expressions?.push(new Variable());
+          break;
+        case "Expression":
+          this.item?.expressions?.push(new Expression("Expression"));
+          break;
+        case "Statement":
+          this.item?.expressions?.push(new Statement("Statement"));
           break;
       }
     }

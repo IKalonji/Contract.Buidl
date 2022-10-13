@@ -1,1 +1,56 @@
-<input *[(ngModel}]="item.value" />
+<div class="row" cdkDragLockAxis="y" cdkDrag>
+    <div class="fields">
+        <mat-icon cdkDragHandle>drag_indicator</mat-icon>
+
+        <mat-checkbox matTooltip="Assignmnet expression" color="primary" [(ngModel)]="isAssignment"></mat-checkbox>
+        <mat-checkbox matTooltip="Before expression" color="primary" [(ngModel)]="isBefore" (change)="isAfter=false"></mat-checkbox>
+        <mat-checkbox matTooltip="After expression" color="primary" [(ngModel)]="isAfter" (change)="afterChanged()"></mat-checkbox>
+    </div>
+
+    <div class="fields">
+        <mat-form-field *ngIf="isAssignment">
+            <mat-label>Literal Assign</mat-label>
+            <input matInput type="text" (change)="updateItem()" [(ngModel)]="assignLiteral" required>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="isAssignment">
+            <mat-label>Select operator Assign</mat-label>
+            <mat-select (change)="updateItem()" [(ngModel)]="assignOperator" required>
+                <mat-option *ngFor="let o of assignOperators" value={{o.Value}}>{{o.Name}} ({{o.Value}})</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="isBefore">
+            <mat-label>Select operator Left</mat-label>
+            <mat-select (change)="updateItem()" [(ngModel)]="leftOperator" required>
+                <mat-option *ngFor="let o of beforeOperators" value={{o.Value}}>{{o.Name}} ({{o.Value}})</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Literal Left</mat-label>
+            <input matInput type="text" (change)="updateItem()" [(ngModel)]="leftLiteral" required>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!isBefore">
+            <mat-label>Select operator Right</mat-label>
+            <mat-select (change)="updateItem()" [(ngModel)]="rightOperator" required>
+                <mat-option *ngFor="let o of logicOperators" value={{o.Value}}>{{o.Name}} ({{o.Value}})</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!isBefore && !isAfter">
+            <mat-label>Literal Right</mat-label>
+            <input matInput type="text" (change)="updateItem()" [(ngModel)]="rightLiteral" required>
+        </mat-form-field>
+    </div>
+
+    <div class="actions">
+        <a (click)="updateItem()">
+            <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
+        </a>
+        <a (click)="deleteItem()">
+            <mat-icon color="warn" matTooltip="Delete item...">clear</mat-icon>
+        </a>
+    </div>
+</div>

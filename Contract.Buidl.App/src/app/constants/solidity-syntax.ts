@@ -79,22 +79,22 @@ const LogicalOperators: {[key: string]: string} [] = [
 const CompareOperators: {[key: string]: string} [] = [
     { "Name": "Less Than", "Value": "<" }, { "Name": "Greater Than", "Value": ">" },
     { "Name": "Less Or Equal", "Value": "<=" }, { "Name": "Greater Or Equal", "Value": ">=" },
-    { "Name": "Equal To", "Value": "== " }, { "Name": "Not Equal To", "Value": "!=" }
+    { "Name": "Equal To", "Value": "== " }, { "Name": "Not Equal To", "Value": "!=" },
+    { "Name": "AND", "Value": "&&" }, { "Name": "OR", "Value": "||" }
 ];
 
 const AssignmentOperators: {[key: string]: string} [] = [
     { "Name": "Equal", "Value": "=" }, { "Name": "Add To", "Value": "+=" },
     { "Name": "Subtract From", "Value": "-=" }, { "Name": "Multiply With", "Value": "*=" },
-    { "Name": "Divide With", "Value": "/=" }, { "Name": "Modulus Of", "Value": "%=" },
-    { "Name": "Equal", "Value": "=" }, { "Name": "Add To", "Value": "+=" }
+    { "Name": "Divide With", "Value": "/=" }, { "Name": "Modulus Of", "Value": "%=" }
 ];
 
 const Statements: any [] = [
-    "If", "For", "While", "Do-While", "Continue", "Break", "Try-Catch", "Return"
+    "If", "For", "While", "Do-While"
 ];
 
 const Expressions: any [] = [
-    "Before", "After", "Compare", "Assignment", "Logic", "Literal", "Variable"
+    "Variable", "Expression", "Statement", "Try-Catch", "Return", "Continue", "Break"
 ];
 
 

@@ -8,7 +8,7 @@ mat-drawer-container {
     gap: 5px;
     border: 1px solid lightgray;
     border-radius: 5px;
-    min-height: 380px;
+    min-height: 330px;
 }
 
 mat-drawer {
@@ -23,7 +23,7 @@ mat-drawer {
 mat-drawer-content {
     display: flex;
     justify-content: space-between;
-    min-height: 380px;
+    min-height: 330px;
 }
 
 .left {

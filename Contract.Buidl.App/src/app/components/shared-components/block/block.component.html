@@ -7,9 +7,9 @@
         </mat-expansion-panel-header>
         <div class="content">
             <div class="row">
-                <div><b>Statements</b></div>
-                <div><b>Block</b></div>
                 <div><b>Expressions</b></div>
+                <div><b>Block</b></div>
+                <div></div>
               </div>
               
             
@@ -17,12 +17,12 @@
                 <mat-drawer 
                     #left_drawer 
                     mode="side"
-                    id="statement"
+                    id="s{{item?.uuid}}"
                     cdkDropList
-                    [cdkDropListData]="statements || []"
-                    cdkDropListConnectedTo="block"
+                    [cdkDropListData]="expressions || []"
+                    cdkDropListConnectedTo="{{item?.uuid}}"
                     (cdkDropListDropped)="drop($event)">
-                    <div class="my-5" *ngFor="let s of statements" cdkDrag>
+                    <div class="my-5" *ngFor="let s of expressions" cdkDrag>
                         <div class="col">
                             <mat-icon>drag_indicator</mat-icon>
                             <mat-label>{{s}}</mat-label>
@@ -30,52 +30,26 @@
                     </div>
                 </mat-drawer>
             
-                <mat-drawer 
-                    #right_drawer mode="side" 
-                    position="end"
-                    id="expression"
-                    cdkDropList
-                    [cdkDropListData]="expressions || []"
-                    cdkDropListConnectedTo="block"
-                    (cdkDropListDropped)="drop($event)">
-                    <div id="opened" class="my-5" *ngFor="let e of expressions" cdkDrag>
-                        <div class="col">
-                            <mat-icon>drag_indicator</mat-icon>
-                            <mat-label>{{e}}</mat-label>
-                        </div>
-                    </div>
-                </mat-drawer>
                 <mat-drawer-content>
                     <div class="left" (mouseenter)="left_drawer.toggle()">
                         <mat-icon>drag_handle</mat-icon>
                     </div>
                     <div 
                         class="center"
-                        id="block"
+                        id="{{item?.uuid}}"
                         cdkDropList
                         [cdkDropListData]="item?.expressions || []"
-                        cdkDropListConnectedTo="block"
+                        cdkDropListConnectedTo="{{item?.uuid}}"
                         (cdkDropListDropped)="drop($event)" >
                         <div *ngFor="let e of item?.expressions">
-                            <app-after-expression *ngIf="e.name == 'AfterExpression'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-after-expression>
-                            <app-assignment-expression *ngIf="e.name == 'AssignmentExpression'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-assignment-expression>
-                            <app-before-expression *ngIf="e.name == 'BeforeExpression'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-before-expression>
-                            <app-compare-expression *ngIf="e.name == 'CompareExpression'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-compare-expression>
-                            <app-logic-expression *ngIf="e.name == 'LogicalExpression'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-logic-expression>
-                            <app-literal-expression *ngIf="e.name == 'LiteralExpression'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-literal-expression>
-                            <app-if-statement *ngIf="e.name == 'IfStatement'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-if-statement>
-                            <app-for-loop *ngIf="e.name == 'ForStatement'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-for-loop>
-                            <app-while-loop *ngIf="e.name == 'WhileStatement'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-while-loop>
-                            <app-do-while-loop *ngIf="e.name == 'DoWhileStatement'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-do-while-loop>
-                            <app-continue-statement *ngIf="e.name == 'ContinueStatement'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-continue-statement>
-                            <app-break-statement *ngIf="e.name == 'BreakStatement'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-break-statement>
-                            <app-try-catch-statement *ngIf="e.name == 'TryStatement'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-try-catch-statement>
-                            <app-return-statement *ngIf="e.name == 'ReturnStatement'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-return-statement>
+                            <app-statement *ngIf="e.name.includes('Statement')" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-statement>
+                            <app-expression *ngIf="e.name == 'Expression'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-expression>
+                            <app-continue-statement *ngIf="e.name == 'Continue'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-continue-statement>
+                            <app-break-statement *ngIf="e.name == 'Break'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-break-statement>
+                            <app-try-catch-statement *ngIf="e.name == 'Try-Catch'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-try-catch-statement>
+                            <app-return-statement *ngIf="e.name == 'Return'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-return-statement>
                             <app-variable *ngIf="e.name == 'Variable'" [item]="e" (deleteItemEvent)="deleteBlockItem($event)" (updateItemEvent)="updateBlockItem($event)"></app-variable>
                         </div>
-                    </div>
-                    <div class="right" (mouseenter)="right_drawer.toggle()">
-                        <mat-icon>drag_handle</mat-icon>
                     </div>
                 </mat-drawer-content>
               </mat-drawer-container>

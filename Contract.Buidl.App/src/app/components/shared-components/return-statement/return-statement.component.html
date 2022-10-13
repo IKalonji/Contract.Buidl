@@ -1,1 +1,31 @@
-<p>return-statement works!</p>
+<div class="row" cdkDragLockAxis="y" cdkDrag>
+    <div class="content">
+        <mat-icon class="drag" cdkDragHandle>drag_indicator</mat-icon>
+
+        <div class="fields">
+            <mat-form-field>
+                <mat-label>Return</mat-label>
+                <input matInput type="text" [(ngModel)]="value" />
+            </mat-form-field>
+        </div>
+
+        <mat-icon matTooltip="Add return" (click)="addReturn()">add_box</mat-icon>
+
+        <div class="content">
+            <div class="return" *ngFor="let r of item.expressions">
+                <b>{{r.value}}</b>
+                <mat-icon color="warn" matTooltip="Delete item..." (click)="deleteReturn(r.value)">clear</mat-icon>
+            </div>
+        </div>
+    </div>
+    
+    <div class="actions">
+        <a (click)="updateItem()">
+            <mat-icon color="primary" matTooltip="Save changes...">done</mat-icon>
+        </a>
+
+        <a (click)="deleteItem()">
+            <mat-icon color="warn" matTooltip="Delete item...">clear</mat-icon>
+        </a>
+    </div>
+</div>

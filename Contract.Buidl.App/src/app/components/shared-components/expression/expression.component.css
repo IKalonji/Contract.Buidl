@@ -1,0 +1,32 @@
+.row {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(211, 211, 211, 0.3);
+    border-radius: 5px;
+    width: 100%;
+}
+
+.fields {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+}
+
+mat-icon, mat-checkbox {
+    margin-top: 10px;
+}
+
+.fields mat-icon {
+    color: gray;
+    cursor: move;
+}
+
+mat-form-field {
+    height: 44px;
+    margin-bottom: 5px;
+}

@@ -13,6 +13,8 @@ class BaseItem {
     generateStatement(): string {
         return this.output;
     };
+
+    setupExpression(): void {}
 }
 
 class License extends BaseItem {
@@ -667,9 +669,9 @@ class Expression extends BaseItem {
     }
 
     override generateStatement(): string {
-        this.output = this.leftExp ? this.leftExp.generateStatement() : "";
-        this.output += ` ${this.operator} `;
-        this.output += this.rightExp ? this.rightExp.generateStatement() : "";
+        this.output = this.leftExp ? this.leftExp.generateStatement() + " " : "";
+        this.output += this.operator ? this.operator : "";
+        this.output += this.rightExp ? " " + this.rightExp.generateStatement() : "";
         return this.output;
     }
 }
@@ -694,6 +696,8 @@ class LiteralExpression extends Expression {
                 default:
                     this.output = this.value;
             }
+        } else if (this.value) {
+            this.output = this.value;
         }
         return this.output;
     }
@@ -708,7 +712,7 @@ class AfterExpression extends Expression {
 
     override generateStatement(): string {
         if(this.literal) {
-            this.output = this.literal.generateStatement() + this.operator + ";";
+            this.output = this.literal.generateStatement() + this.operator;
         }
         return this.output;
     }
@@ -723,7 +727,7 @@ class BeforeExpression extends Expression {
 
     override generateStatement(): string {
         if(this.literal) {
-            this.output = this.operator + this.literal.generateStatement() + ";";
+            this.output = this.operator + this.literal.generateStatement();
         }
         return this.output;
     }
@@ -747,76 +751,84 @@ class AssignmentExpression extends Expression {
     }
 }
 
-class IfStatement extends BaseItem {
-    ifConditions?: Expression[] = [];
-    ifStatements?: Block[] = [];
-    elseStatement?: Block;
+class Statement extends BaseItem {
+    expression?: CompareExpression = new CompareExpression();
+    leftExp?: LiteralExpression = new LiteralExpression();
+    rightExp?: LiteralExpression = new LiteralExpression();
+    operator?: string = "";
+    type?: string = "If";
+    block?: Block = new Block();
+
+    constructor(name: string) {
+        super(name);
+    }
+
+    override setupExpression(): void {
+        if(this.expression) {
+            this.expression.leftExp = this.leftExp;
+            this.expression.rightExp = this.rightExp;
+        }
+    }
+}
+
+class IfStatement extends Statement {
 
     constructor() {
         super("IfStatement");
+        this.type = "If";
     }
     
     override generateStatement(): string {
-        if(this.ifConditions && this.ifConditions.length > 0 && this.ifStatements && this.ifStatements.length > 0) {
-            this.output += `if (${this.ifConditions[0].generateStatement()}) ${this.ifStatements[0].generateStatement()}`;
-            for(let i = 1; i < this.ifConditions.length; i++) {
-                this.output += ` else if (${this.ifConditions[i].generateStatement()}) ${this.ifStatements[i].generateStatement()}`;
-            }
-            if(this.elseStatement) {
-                this.output += ` else ${this.elseStatement.generateStatement()}`
-            }
+        this.setupExpression();
+        if(this.expression) {
+            this.output = `if (${this.expression.generateStatement()}) ${this.block?.generateStatement()}`;
         }
 
         return this.output;
     }
 }
 
-class ForStatement extends BaseItem {
-    initializer?: Expression;
-    condition?: Expression;
-    iteration?: Expression;
-
+class ForStatement extends Statement {
     constructor() {
         super("ForStatement");
+        this.type = "For";
     }
 
     override generateStatement(): string {
-        //this.output = `while (${this.expression?.generateStatement()}) ${this.statement?.generateStatement()}`;
+        this.setupExpression();
         return this.output;
     }
 }
 
-class WhileStatement extends BaseItem {
-    statement?: Block;
-    expression?: Expression;
-
+class WhileStatement extends Statement {
     constructor() {
         super("WhileStatement");
+        this.type = "While";
     }
 
     override generateStatement(): string {
-        this.output = `while (${this.expression?.generateStatement()}) ${this.statement?.generateStatement()}`;
+        this.setupExpression();
+        this.output = `while (${this.expression?.generateStatement()}) ${this.block?.generateStatement()}`;
         return this.output;
     }
 }
 
-class DoWhileStatement extends BaseItem {
-    statement?: Block;
-    expression?: Expression;
-
+class DoWhileStatement extends Statement {
     constructor() {
         super("DoWhileStatement");
+        this.type = "DoWhile";
     }
 
     override generateStatement(): string {
-        this.output = `do ${this.statement?.generateStatement()} while (${this.expression?.generateStatement()});`;
+        this.setupExpression();
+        this.output = `do ${this.block?.generateStatement()} while (${this.expression?.generateStatement()});`;
         return this.output;
     }
 }
 
 class ContinueStatement extends BaseItem {
     constructor() {
-        super("ContinueStatement");
+        super("Continue");
     }
 
     override generateStatement(): string {
@@ -826,7 +838,7 @@ class ContinueStatement extends BaseItem {
 
 class BreakStatement extends BaseItem {
     constructor() {
-        super("BreakStatement");
+        super("Break");
     }
 
     override generateStatement(): string {
@@ -862,7 +874,7 @@ class TryStatement extends BaseItem {
     catchClauses?: CatchClause[] = [];
 
     constructor() {
-        super("TryStatement");
+        super("Try-Catch");
     }
 
     override generateStatement(): string {
@@ -880,14 +892,21 @@ class TryStatement extends BaseItem {
 }
 
 class ReturnStatement extends BaseItem {
-    expression?: Expression;
+    expressions?: LiteralExpression[] = [];
 
     constructor() {
-        super("ReturnStatement");
+        super("Return");
     }
 
     override generateStatement(): string {
-        return `return ${this.expression ? this.expression.generateStatement() : ""};`;
+        if(this.expressions?.length == 0) {
+            this.output = "return;";
+        } else if(this.expressions?.length == 1) {
+            this.output = `return ${this.expressions[0].generateStatement()};`;
+        } else {
+            this.output = `return ${this.expressions?.map(e => e.generateStatement()).join(", ")};`;;
+        }
+        return this.output;
     }
 }
 
@@ -899,7 +918,7 @@ class Block extends BaseItem {
     }
 
     override generateStatement(): string {
-        this.output = ` {\n${this.expressions?.map(e => e.generateStatement()).join("\n")}\n}`;
+        this.output = ` {\n${this.expressions?.map(e => e.generateStatement() + (e.constructor.name == "Expression" ? ";" : "")).join("\n")}\n}`;
         return this.output
     }
 }
@@ -911,5 +930,5 @@ export {
     UserDefinedValueType, EventParameter, ErrorParameter,  Operator, Expression, 
     ReturnStatement, TryStatement, CatchClause, BreakStatement, ContinueStatement, DoWhileStatement,
     WhileStatement, ForStatement, IfStatement, AfterExpression, BeforeExpression, CompareExpression,
-    LogicalExpression, AssignmentExpression, LiteralExpression
+    LogicalExpression, AssignmentExpression, LiteralExpression, Statement
 }

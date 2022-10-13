@@ -1,0 +1,52 @@
+.row {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(211, 211, 211, 0.3);
+    gap: 10px;
+    border-radius: 5px;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+}
+
+.drag {
+    color: gray;
+    cursor: move;
+}
+
+.content {
+    display: flex;
+    gap: 10px;
+}
+
+.return {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+    padding: 5px;
+    background-color: lightgray;
+    border-radius: 5px;
+}
+
+.return b {
+    margin-top: 2px;
+}
+
+.fields {
+    padding-bottom: 5px;
+}
+
+mat-form-field {
+    height: 44px;
+}
+
+.content mat-icon, .actions mat-icon {
+    margin-top: 14px;
+}
+
+.return mat-icon {
+    margin: 0;
+    cursor: pointer;
+}

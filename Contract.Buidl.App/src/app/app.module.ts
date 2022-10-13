@@ -66,6 +66,7 @@ import { BreakStatementComponent } from './components/shared-components/break-st
 import { ReturnStatementComponent } from './components/shared-components/return-statement/return-statement.component';
 import { TryCatchStatementComponent } from './components/shared-components/try-catch-statement/try-catch-statement.component';
 import { VariableComponent } from './components/shared-components/variable/variable.component';
+import { StatementComponent } from './components/shared-components/statement/statement.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { VariableComponent } from './components/shared-components/variable/varia
     BreakStatementComponent,
     ReturnStatementComponent,
     TryCatchStatementComponent,
-    VariableComponent
+    VariableComponent,
+    StatementComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,62 @@
+mat-expansion-panel-header {
+    border: 1px solid gray;
+}
+
+mat-panel-description {
+    justify-content: space-between;
+    align-items: center;
+}
+
+mat-panel-description div {
+    display: flex;
+    flex-direction: row;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px 5px 60px 5px;
+    margin-top: 10px;
+    background-color: rgba(211, 211, 211, 0.3);
+    border-radius: 5px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(211, 211, 211, 0.3);
+    border-radius: 5px;
+    padding: 0 5px;
+}
+
+.fields {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+}
+
+mat-icon, mat-checkbox {
+    margin-top: 10px;
+}
+
+.fields mat-icon {
+    color: gray;
+    cursor: move;
+}
+
+mat-form-field {
+    height: 44px;
+    margin-bottom: 5px;
+}
+
+mat-radio-group {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+}

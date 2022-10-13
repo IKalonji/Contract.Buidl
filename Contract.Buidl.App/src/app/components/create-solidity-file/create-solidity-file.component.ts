@@ -114,7 +114,7 @@ export class CreateSolidityFileComponent implements OnInit {
     let output = "";
     this.items.forEach(i => output += `\n${i.generateStatement()}`);
     console.log(output);
-    this.deploymentService.deployContract(output);
+    //this.deploymentService.deployContract(output);
   }
 
   splitStringByCaps(text: string): string {
