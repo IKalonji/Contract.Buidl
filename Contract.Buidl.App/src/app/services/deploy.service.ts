@@ -6,13 +6,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DeployService {
 
-  ENDPOINT: string = "http://localhost:5000/";
+  ENDPOINT: string = "http://localhost:5000/deploy";
 
   constructor(private httpClient: HttpClient) { }
 
-  deployContract(contract:string) {
+  deployContract(contract:string, name:string) {
+    console.log("Deploying")
     let requestBody = {
       chain: "",
+      name: name,
       contract: contract
     }
 

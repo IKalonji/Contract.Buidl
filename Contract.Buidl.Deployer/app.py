@@ -1,15 +1,16 @@
-import json
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
-import json
-import random
+from flask import Flask, request, jsonify
 import os
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+CORS(app)
 
+@cross_origin
 @app.route('/')
 def index():
     return "Contract Deployer"
-    
+
+@cross_origin
 @app.route('/deploy', methods=['POST'])
 def deploy():
     """
@@ -17,6 +18,7 @@ def deploy():
     Request body should follow the structure below:
     {
         chain: "",
+        name: "",
         contract: ""
     }
     """
@@ -38,7 +40,7 @@ def deploy():
     print("DEPLOYING THE CONTRACT:")
     os.system("yarn hardhat run --network testnet scripts/Deployment.ts")
 
-    return ""
+    return jsonify({"result": "ok"})
 
 if __name__ == '__main__':
     app.run(debug=True)
