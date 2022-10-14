@@ -13,7 +13,6 @@
     <a href="https://github.com/IKalonji/Contract.Buidl/blob/main/README.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://youtu.be/pLqrLngBJcg">View Demo</a>
     ·
     <a href="https://github.com/IKalonji/Contract.Buidl/issues">Report Bug</a>
     ·

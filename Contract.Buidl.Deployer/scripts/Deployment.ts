@@ -11,9 +11,10 @@ async function main() {
     console.log("Account balance:", (await deployer.getBalance()).toString());
   
     const Contract = await ethers.getContractFactory(`${contract_name.name}`);
-    const token = await Contract.deploy();
+    const deployTx = await Contract.deploy();
+    deployTx.deployed();
   
-    console.log("Contract address:", token.address);
+    console.log("Contract address:", deployTx.address);
   }
   
   main()

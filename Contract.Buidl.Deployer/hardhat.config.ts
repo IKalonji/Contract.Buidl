@@ -15,8 +15,14 @@ const config: HardhatUserConfig = {
       url: `https://eth-goerli.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
       accounts: [process.env.PRIVATE_KEY_SECOND!]
     },
-    testnet: {
+    coinex: {
       url: "https://testnet-rpc.coinex.net/",
+      accounts: {
+        mnemonic: process.env.MNEMONIC
+      }
+    },
+    testnet: {
+      url: "https://api.baobab.klaytn.net:8651/",
       accounts: {
         mnemonic: process.env.MNEMONIC
       }
