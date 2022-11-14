@@ -6,23 +6,33 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DeployService {
 
-  ENDPOINT: string = "http://localhost:5000/deploy";
+  walletAddress: string = "";
+  walletConnected: boolean = false;
 
-  constructor(private httpClient: HttpClient) { }
+  deployedEndpoint = "https://ikalonji.pythonanywhere.com"
 
-  deployContract(contract:string, name:string) {
-    console.log("Deploying")
-    let requestBody = {
-      chain: "",
-      name: name,
+  constructor(private httpClient: HttpClient) {
+    this.connectWallet()
+   }
+
+  async compileContract(contract:string) {
+    this.connectWallet()
+    let body = {
       contract: contract
     }
 
-    return this.deploy(requestBody)
+    return this.httpClient.post(`http://localhost:5000/compile`, body).subscribe( data => {
+      let contractABI: any = data;
+      console.log(contractABI)
+    })
+
   }
 
-  private deploy(body: any){
-    return this.httpClient.post(this.ENDPOINT, body)
+  connectWallet(){
+    if (window.tronWeb && window.tronWeb.defaultAddress.base58){
+      this.walletAddress = window.tronWeb.defaultAddress.base58;
+      this.walletConnected = true;
+      console.log("Default Address: ", this.walletAddress);
+    }
   }
-
 }

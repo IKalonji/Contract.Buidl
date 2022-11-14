@@ -123,9 +123,7 @@ export class CreateSolidityFileComponent implements OnInit {
   }
 
   deploy(){
-    this.deploymentService.deployContract(this.output, "NewContract").subscribe(data => {
-      let response: any = data;
-      console.log(response)
-    });
+    console.log(this.output);
+    this.deploymentService.compileContract(this.output);
   }
 }
