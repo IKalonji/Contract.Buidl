@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(){
+    this.walletShouldBeConnected()
   }
 
   walletShouldBeConnected(){
@@ -25,19 +26,19 @@ export class AppComponent implements OnInit {
       this.walletConnected = true;
       console.log("Default Address: ", this.walletAddress);
     } else {
+      console.log("in here")
       this.confirmService.confirm({
         header: "Connect TronLink wallet",
-        message: "You need to connect to TronLink to proceed. Open your Tronlink wallet extension and sign in. Once you've signed in click 'CONNECT'",
+        message: "Before proceeding you need to connect to TronLink. Open your Tronlink wallet extension and sign in. Once you've signed in click 'CONNECT'",
         acceptLabel: "CONNECT",
         acceptIcon: PrimeIcons.LINK,
         accept: () => {
           this.walletShouldBeConnected();
         },
         closeOnEscape: false,
-        
+        rejectVisible: false,
       })
     }
-
   }
   
 }
