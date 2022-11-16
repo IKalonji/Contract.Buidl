@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
@@ -138,7 +140,8 @@ import { StatementComponent } from './components/shared-components/statement/sta
     MatButtonModule,
     MatSelectModule,
     MatAutocompleteModule,
-    HttpClientModule
+    HttpClientModule,
+    ConfirmDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
