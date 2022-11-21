@@ -3,8 +3,14 @@
     <button (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
       <mat-icon>menu</mat-icon>
     </button>
-    <h2 style="text-align: center;">Contract Builder</h2>&nbsp;
-    <h2>Connected to {{walletAddress}}</h2>
+    <!-- <h2 style="text-align: center;">Contract Builder</h2>&nbsp; -->
+    <h2>{{wallet}}</h2>
+    <button mat-button (click)="launchApp()" *ngIf="!launchedApp">Launch IDE</button>
+    <div>
+      <label for="chain">Select chain</label>&nbsp;
+      <p-dropdown [options]="chains" [(ngModel)]="chain" optionLabel="name"></p-dropdown>
+    </div>
+    
   </div>
 </mat-toolbar>
 
@@ -15,7 +21,8 @@
   </mat-drawer>
   
   <mat-drawer-content>
-    <app-create-solidity-file></app-create-solidity-file>
+    <app-home *ngIf="!launchedApp"></app-home>
+    <app-create-solidity-file *ngIf="launchedApp"></app-create-solidity-file>
   </mat-drawer-content>
 </mat-drawer-container>
 <p-confirmDialog [closable]="false"></p-confirmDialog>

@@ -5,7 +5,7 @@ import { BaseItem, License, Pragma, Comment, Version, ABICoderPragma, Import,
   from "../../grammer/source-unit";
 import { FileItems, ContractItems, ConstructorItems } from 'src/app/constants/solidity-syntax';
 import { DeployService } from 'src/app/services/deploy.service';
-//const fs = require('fs');
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-create-solidity-file',
@@ -14,7 +14,7 @@ import { DeployService } from 'src/app/services/deploy.service';
 })
 export class CreateSolidityFileComponent implements OnInit {
 
-  constructor(private deploymentService: DeployService) { }
+  constructor(private deploymentService: DeployService, private confirmationService: ConfirmationService) { }
 
   fileItems = FileItems;
   contractItems = ContractItems;
@@ -115,6 +115,7 @@ export class CreateSolidityFileComponent implements OnInit {
   previewFile() {
     this.output = "";
     this.items.forEach(i => this.output += `\n${i.generateStatement()}`);
+    // this.items = [];
     console.log(this.output);
   }
 
@@ -123,7 +124,35 @@ export class CreateSolidityFileComponent implements OnInit {
   }
 
   deploy(){
-    console.log(this.output);
-    this.deploymentService.compileContract(this.output);
+    const generateContractName:boolean = this.deploymentService.searchContractName(this.items);
+    if (generateContractName){
+      this.deploymentService.compileContract(this.output).subscribe(data => {
+        let response: any = data;
+        if ("errors" in response){
+          this.confirmationService.confirm({
+            header: "Error",
+            message: response["errors"],
+            accept: () => {},
+            acceptLabel: "OK",
+            rejectVisible: false
+          })
+        }else {
+          let abi = response["abi"];
+          let bytecode = response["bytecode"];
+          const deployResponse = this.deploymentService.deployContract(abi, bytecode);
+          alert(deployResponse)
+        }
+      });
+    }else{
+      this.confirmationService.confirm({
+        header: "Error",
+        message: "Could not parse contract identifier, please name the contract",
+        accept: () => {},
+        acceptLabel: "OK",
+        rejectVisible: false
+      })
+    }
+
+    
   }
 }

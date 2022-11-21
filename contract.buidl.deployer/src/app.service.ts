@@ -36,7 +36,7 @@ export class AppService {
     try {
       const abi = compiledContract["contracts"]["contractbuidl"][contractDTO.name]["abi"];
       const bytecode = compiledContract["contracts"]["contractbuidl"][contractDTO.name]["evm"]["bytecode"]["object"];
-      return {abi: abi, bytecode: bytecode, full: compiledContract};
+      return {abi: abi, bytecode: bytecode};
     } catch (error) {
       const errors = compiledContract["errors"];
       return {errors: errors};

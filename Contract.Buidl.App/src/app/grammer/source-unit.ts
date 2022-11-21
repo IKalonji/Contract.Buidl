@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { DeployService } from '../services/deploy.service';
 
 class BaseItem {
     uuid: string = "";
@@ -170,6 +171,7 @@ class Contract extends BaseItem {
         }
         return this.output;
     }
+
 }
 
 class Interface extends BaseItem {

@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {DropdownModule} from 'primeng/dropdown';
 import { ConfirmationService } from 'primeng/api'
 
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -70,6 +71,7 @@ import { ReturnStatementComponent } from './components/shared-components/return-
 import { TryCatchStatementComponent } from './components/shared-components/try-catch-statement/try-catch-statement.component';
 import { VariableComponent } from './components/shared-components/variable/variable.component';
 import { StatementComponent } from './components/shared-components/statement/statement.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +117,8 @@ import { StatementComponent } from './components/shared-components/statement/sta
     ReturnStatementComponent,
     TryCatchStatementComponent,
     VariableComponent,
-    StatementComponent
+    StatementComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -142,7 +145,8 @@ import { StatementComponent } from './components/shared-components/statement/sta
     MatSelectModule,
     MatAutocompleteModule,
     HttpClientModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    DropdownModule
   ],
   providers: [ConfirmationService],
   bootstrap: [AppComponent]
