@@ -29,6 +29,9 @@ export class CreateSolidityFileComponent implements OnInit {
 
   output:any
 
+  displaySpinner: boolean = false;
+  spinnerMsg: string = "Loading";
+
   ngOnInit(): void {
     this.options = this.fileItems;
   }
@@ -117,6 +120,13 @@ export class CreateSolidityFileComponent implements OnInit {
     this.items.forEach(i => this.output += `\n${i.generateStatement()}`);
     // this.items = [];
     console.log(this.output);
+    this.confirmationService.confirm({
+      header: "Preview",
+      message: this.output,
+      accept: () => {},
+      acceptLabel: "OK",
+      rejectVisible: false
+    })
   }
 
   splitStringByCaps(text: string): string {
@@ -124,14 +134,19 @@ export class CreateSolidityFileComponent implements OnInit {
   }
 
   deploy(){
+    this.displaySpinner = true;
+    this.spinnerMsg = "Parsing contract data";
     const generateContractName:boolean = this.deploymentService.searchContractName(this.items);
     if (generateContractName){
+      this.spinnerMsg = "Compiling contract";
       this.deploymentService.compileContract(this.output).subscribe(data => {
         let response: any = data;
+        this.spinnerMsg = "Compiled";
         if ("errors" in response){
+          this.displaySpinner = false;
           this.confirmationService.confirm({
             header: "Error",
-            message: response["errors"],
+            message: JSON.stringify(response["errors"]),
             accept: () => {},
             acceptLabel: "OK",
             rejectVisible: false
@@ -139,11 +154,19 @@ export class CreateSolidityFileComponent implements OnInit {
         }else {
           let abi = response["abi"];
           let bytecode = response["bytecode"];
+          this.spinnerMsg = "Deploying Contract to chain..."
           const deployResponse = this.deploymentService.deployContract(abi, bytecode);
-          alert(deployResponse)
+          this.confirmationService.confirm({
+            header: "Deployed",
+            message: JSON.stringify(deployResponse),
+            accept: () => {this.displaySpinner = false;},
+            acceptLabel: "OK",
+            rejectVisible: false
+          })
         }
       });
     }else{
+      this.displaySpinner = false
       this.confirmationService.confirm({
         header: "Error",
         message: "Could not parse contract identifier, please name the contract",

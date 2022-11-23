@@ -20,6 +20,10 @@
         cdkDropListConnectedTo="selected"
         (cdkDropListDropped)="drop($event)" 
         (click)="changeContext(defaultItem)">
+        <div *ngIf="displaySpinner" style="text-align: center;">
+            <h3 style="font-weight: 700; color:azure;">{{spinnerMsg}}</h3>
+            <p-progressSpinner></p-progressSpinner>
+        </div> 
         <div class="my-5" *ngFor="let item of items">
             <div *ngIf="item.name == 'License'">
                 <app-license (deleteItemEvent)="deleteItem($event)" (updateItemEvent)="updateItem($event)" [item]="item"></app-license>
@@ -57,5 +61,5 @@
             <button (click)="previewFile()" mat-raised-button color="primary">Preview</button>&nbsp;&nbsp;
             <button (click)="deploy()" mat-raised-button color="primary">Deploy</button>
         </div>
-    </div>
+    </div> 
 </div>
