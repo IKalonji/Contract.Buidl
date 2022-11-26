@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -83,8 +84,12 @@ export class WalletService {
     return this.tronWalletHex;
   }
 
-  getConnectedWallet(){
-    return this.connectedWalletAddress; 
+  getConnectedWallet(): Observable<string>{
+    
+    return new Observable<string>(observer => {
+      observer.next(this.connectedWalletAddress);
+      observer.complete();
+    }); 
   }
 
 }

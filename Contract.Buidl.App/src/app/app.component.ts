@@ -31,6 +31,11 @@ export class AppComponent implements OnInit {
       acceptIcon: PrimeIcons.LINK,
       accept: async () => {
         this.walletService.connectWallet(this.chain.name);
+        this.walletService.getConnectedWallet().subscribe(data => {
+          this.wallet = data;
+        }, (error) => {
+          console.log(error)
+        })
       },
       closeOnEscape: false,
       rejectVisible: false,
