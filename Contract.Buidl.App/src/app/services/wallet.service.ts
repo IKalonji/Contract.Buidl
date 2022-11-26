@@ -8,8 +8,8 @@ import { Observable, Subject } from 'rxjs';
 export class WalletService {
 
   metamaskWallet:string = "";
-  tronWallet: any;
-  tronWalletHex: any;
+  tronWallet: any = "";
+  tronWalletHex: any = "";
   walletConnected: boolean = false;
 
   connectedWalletAddress: string = "";
@@ -25,8 +25,7 @@ export class WalletService {
     let walletReturned = ""
     switch (chain){
       case "tron":
-        walletReturned = this.tronlinkWalletConnect();
-        break;
+        return this.tronlinkWalletConnect();
       case "aurora":
         this.metamaskWalletConnect().then( data =>{
           walletReturned = data;
@@ -39,52 +38,34 @@ export class WalletService {
   }
 
   tronlinkWalletConnect(){
-    console.log("Called tron connect")
     if (window.tronWeb && window.tronWeb.defaultAddress.base58){
-      console.log("in here");
       this.tronWallet = window.tronWeb.defaultAddress.base58;
       this.walletAddressChanged.next(this.tronWallet)
       this.tronWalletHex = window.tronWeb.address.toHex(this.tronWallet);
       this.walletConnected = true;
+      return this.tronWallet;
     } else if (!window.tronWeb){
-      this.confirmationService.confirm({
-        header: "Tronlink not available",
-        message: "Please install Tronlink extension in order to connect and use the app.",
-        acceptLabel: "CONNECT",
-        closeOnEscape: false,
-        rejectVisible: false,
-        acceptVisible: false
-      })
+      return this.tronWallet;
     }else {
-      alert("Tronlink could not be accessed, please sign in to Tronlink")
-  }
-    return this.tronWallet;
+      return this.tronWallet;
+    }
   }
 
   async metamaskWalletConnect(){
     if (typeof window.ethereum !== 'undefined') {
-      console.log('MetaMask is installed!');
       const accounts = await window.ethereum.request({method: 'eth_requestAccounts'}).catch((err:any) => {
         if (err.code === 4001){
-          this.confirmationService.confirm({
-            header: "Connect wallet to proceed!",
-            message: "You need to connect your wallet to use the DEX",
-            accept: () => {},
-            acceptLabel: "OK",
-            acceptIcon: "pi pi-thumbs-up",
-            dismissableMask: false,
-            rejectVisible: false,
-            closeOnEscape: false,
-          })
         }
       });
       this.metamaskWallet = accounts[0];
       this.walletAddressChanged.next(this.metamaskWallet);
       console.log(this.metamaskWallet);
       this.walletConnected = true;
+      return this.metamaskWallet
+    }else {
+      return this.metamaskWallet
+    }
   }
-  return this.metamaskWallet
-}
 
   getMetamaskWallet(){
     return this.metamaskWallet;

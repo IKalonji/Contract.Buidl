@@ -9,6 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {DropdownModule} from 'primeng/dropdown';
 import {ProgressSpinnerModule} from 'primeng/progressspinner'
+import {ToolbarModule} from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
+import { SplitButtonModule } from 'primeng/splitbutton'
 import { ConfirmationService } from 'primeng/api'
 
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -148,7 +151,10 @@ import { HomeComponent } from './home/home.component';
     HttpClientModule,
     ConfirmDialogModule,
     DropdownModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    ToolbarModule,
+    ButtonModule,
+    SplitButtonModule
   ],
   providers: [ConfirmationService],
   bootstrap: [AppComponent]

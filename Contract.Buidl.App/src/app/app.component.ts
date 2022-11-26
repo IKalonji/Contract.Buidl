@@ -10,7 +10,7 @@ import { WalletService } from './services/wallet.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Contract.Buidl';
+  title = 'D3 IDE';
 
   wallet:string = "No wallet connected";
   walletConnected:boolean = false;
@@ -30,12 +30,27 @@ export class AppComponent implements OnInit {
 
   requestConnection() {
     this.confirmService.confirm({
+      key: "connectionRequest",
       header: "Connect wallet",
       message: "Before proceeding you need to connect your wallet. Open your wallet extension and sign in. Once you've signed in click 'CONNECT'",
       acceptLabel: "CONNECT",
       acceptIcon: PrimeIcons.LINK,
       accept: async () => {
-        this.walletService.connectWallet(this.chain.name);
+        let connectionResponse = this.walletService.connectWallet(this.chain.name);
+        console.log("" == connectionResponse);
+        if (connectionResponse == ""){
+          this.confirmService.confirm({
+            key: "invalidConnection",
+            header: "Could not connect to wallet!",
+            message: "D3 IDE could not connect to an active wallet, you not be able to deploy a smart contract. Please ensure that you have correctly selected your intended chain, installed and logged into Metamask (Aurora) or Tronlink (Tron) then retry.",
+            rejectVisible: false,
+            acceptLabel: "Retry",
+            acceptIcon: PrimeIcons.REPLAY,
+            accept: () => {
+              this.launchedApp = false;
+            },
+          })
+        }
       },
       closeOnEscape: false,
       rejectVisible: false,

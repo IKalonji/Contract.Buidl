@@ -1,29 +1,36 @@
-<mat-toolbar class="toolbar-fixed">
-  <div class="toolbar-content">
-    <button (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <div>
-      <h2 style="padding-top: 10px;">Use on testnet only (Tron Nile and Aurora testnet)</h2>&nbsp;
-    </div>
-    <div>
-      <label style="color: darkblue;" for="wallet" *ngIf="launchedApp">Connected wallet: {{wallet}}</label>&nbsp;&nbsp;
-      <label for="chain" *ngIf="!launchedApp">Select chain</label>&nbsp;
-      <p-dropdown [options]="chains" [(ngModel)]="chain" optionLabel="name" *ngIf="!launchedApp"></p-dropdown>
-      <button mat-button (click)="launchApp()" *ngIf="!launchedApp">Launch IDE</button>
-    </div>
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+      <p-button icon="pi pi-list" (click)="drawer.toggle()" class="p-button-outlined"></p-button>
+      <div class="spacer-div"></div>
+      <label for="notice">Use on testnet only (Tron Nile and Aurora testnet)</label>
   </div>
-</mat-toolbar>
+  <div>
+    <label for="title" style="font-weight: 700;">{{title}}</label>
+  </div>
+  <div class="p-toolbar-group-right">
+    <label style="color: rgb(0, 0, 0);" for="wallet" *ngIf="launchedApp"><i class="pi pi-wallet"></i> {{wallet}}</label>
+    <div class="spacer-div"></div>
+    <label for="chain" *ngIf="!launchedApp">Select chain</label>
+    <div class="spacer-div"></div>
+    <p-dropdown [options]="chains" [(ngModel)]="chain" optionLabel="name" *ngIf="!launchedApp"></p-dropdown>
+    <div class="spacer-div"></div>
+    <p-button icon="pi pi-code" label="Launch IDE" (click)="launchApp()" *ngIf="!launchedApp" class="p-button-outlined"></p-button>
+    <div class="spacer-div"></div>
+  </div>
+</p-toolbar>
 
-<mat-drawer-container class="drawer-container" [hasBackdrop]="false">
+<mat-drawer-container [hasBackdrop]="false">
   <mat-drawer #drawer mode="side">
     <a>Contracts</a>
     <a>New Contract</a>
   </mat-drawer>
   
   <mat-drawer-content>
-    <app-home *ngIf="!launchedApp"></app-home>
+    <div style="text-align: center; padding-top: 20px;" *ngIf="!launchedApp">
+      <app-home style="text-align: center;"></app-home>
+    </div>
     <app-create-solidity-file *ngIf="launchedApp"></app-create-solidity-file>
   </mat-drawer-content>
 </mat-drawer-container>
-<p-confirmDialog [closable]="false"></p-confirmDialog>
+<p-confirmDialog [closable]="false" key="connectionRequest"></p-confirmDialog>
+<p-confirmDialog [closable]="false" key="invalidConnection"></p-confirmDialog>
