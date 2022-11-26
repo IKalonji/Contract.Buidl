@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,13 @@ export class WalletService {
   walletConnected: boolean = false;
 
   connectedWalletAddress: string = "";
+  walletAddressChanged: Subject<string> = new Subject<string>();
 
-  constructor(private confirmationService: ConfirmationService) { }
+  constructor(private confirmationService: ConfirmationService) {
+    this.walletAddressChanged.subscribe((data)=>{
+      this.connectedWalletAddress = data
+    })
+   }
 
   connectWallet(chain:string){
     let walletReturned = ""
@@ -34,10 +39,11 @@ export class WalletService {
   }
 
   tronlinkWalletConnect(){
+    console.log("Called tron connect")
     if (window.tronWeb && window.tronWeb.defaultAddress.base58){
       console.log("in here");
       this.tronWallet = window.tronWeb.defaultAddress.base58;
-      this.connectedWalletAddress = this.tronWallet;
+      this.walletAddressChanged.next(this.tronWallet)
       this.tronWalletHex = window.tronWeb.address.toHex(this.tronWallet);
       this.walletConnected = true;
     } else if (!window.tronWeb){
@@ -49,7 +55,9 @@ export class WalletService {
         rejectVisible: false,
         acceptVisible: false
       })
-    }
+    }else {
+      alert("Tronlink could not be accessed, please sign in to Tronlink")
+  }
     return this.tronWallet;
   }
 
@@ -71,7 +79,7 @@ export class WalletService {
         }
       });
       this.metamaskWallet = accounts[0];
-      this.connectedWalletAddress = this.metamaskWallet;
+      this.walletAddressChanged.next(this.metamaskWallet);
       console.log(this.metamaskWallet);
       this.walletConnected = true;
   }
@@ -88,14 +96,6 @@ export class WalletService {
 
   getTronWalletHex(){
     return this.tronWalletHex;
-  }
-
-  getConnectedWallet(): Observable<string>{
-    
-    return new Observable<string>(observer => {
-      observer.next(this.connectedWalletAddress);
-      observer.complete();
-    }); 
   }
 
 }

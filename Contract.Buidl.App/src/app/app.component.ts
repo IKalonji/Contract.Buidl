@@ -12,7 +12,7 @@ import { WalletService } from './services/wallet.service';
 export class AppComponent implements OnInit {
   title = 'Contract.Buidl';
 
-  wallet:string = "";
+  wallet:string = "No wallet connected";
   walletConnected:boolean = false;
   launchedApp: boolean = false;
   chain: any = "";
@@ -21,7 +21,12 @@ export class AppComponent implements OnInit {
   constructor(private deployerService: DeployService, private confirmService: ConfirmationService, private walletService: WalletService){
   }
 
-  ngOnInit(){}
+  ngOnInit(){
+    this.walletService.walletAddressChanged.subscribe(value => {
+      this.wallet = value;
+      console.log("wallet value: ", this.wallet)
+    });
+  }
 
   requestConnection() {
     this.confirmService.confirm({
@@ -31,11 +36,6 @@ export class AppComponent implements OnInit {
       acceptIcon: PrimeIcons.LINK,
       accept: async () => {
         this.walletService.connectWallet(this.chain.name);
-        this.walletService.getConnectedWallet().subscribe(data => {
-          this.wallet = data;
-        }, (error) => {
-          console.log(error)
-        })
       },
       closeOnEscape: false,
       rejectVisible: false,

@@ -3,13 +3,15 @@
     <button (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
       <mat-icon>menu</mat-icon>
     </button>
-    <h2 style="padding-top: 10px;">Use on testnet only (Tron Nile and Aurora testnet)</h2>&nbsp;
     <div>
-      <label for="chain">Select chain</label>&nbsp;
-      <p-dropdown [options]="chains" [(ngModel)]="chain" optionLabel="name"></p-dropdown>
+      <h2 style="padding-top: 10px;">Use on testnet only (Tron Nile and Aurora testnet)</h2>&nbsp;
+    </div>
+    <div>
+      <label style="color: darkblue;" for="wallet" *ngIf="launchedApp">Connected wallet: {{wallet}}</label>&nbsp;&nbsp;
+      <label for="chain" *ngIf="!launchedApp">Select chain</label>&nbsp;
+      <p-dropdown [options]="chains" [(ngModel)]="chain" optionLabel="name" *ngIf="!launchedApp"></p-dropdown>
       <button mat-button (click)="launchApp()" *ngIf="!launchedApp">Launch IDE</button>
     </div>
-    
   </div>
 </mat-toolbar>
 
