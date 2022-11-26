@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {DropdownModule} from 'primeng/dropdown';
+import {ProgressSpinnerModule} from 'primeng/progressspinner'
 import { ConfirmationService } from 'primeng/api'
 
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -146,7 +147,8 @@ import { HomeComponent } from './home/home.component';
     MatAutocompleteModule,
     HttpClientModule,
     ConfirmDialogModule,
-    DropdownModule
+    DropdownModule,
+    ProgressSpinnerModule
   ],
   providers: [ConfirmationService],
   bootstrap: [AppComponent]

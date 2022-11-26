@@ -17,12 +17,16 @@ export class WalletService {
   constructor(private confirmationService: ConfirmationService) { }
 
   connectWallet(chain:string){
+    let walletReturned = ""
     switch (chain){
       case "tron":
-        this.tronlinkWalletConnect();
+        walletReturned = this.tronlinkWalletConnect();
         break;
       case "aurora":
-        this.metamaskWalletConnect();
+        this.metamaskWalletConnect().then( data =>{
+          walletReturned = data;
+          return walletReturned;
+        });
         break;
       default:
         alert("Chosen chain not supported yet!")
@@ -46,6 +50,7 @@ export class WalletService {
         acceptVisible: false
       })
     }
+    return this.tronWallet;
   }
 
   async metamaskWalletConnect(){
@@ -70,6 +75,7 @@ export class WalletService {
       console.log(this.metamaskWallet);
       this.walletConnected = true;
   }
+  return this.metamaskWallet
 }
 
   getMetamaskWallet(){

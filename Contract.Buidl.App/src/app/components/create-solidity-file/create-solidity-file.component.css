@@ -90,4 +90,11 @@ a {
     .col-right {
         width: 88%;
     }
+
+.spinner-div{
+    z-index: 1;
+    margin: auto;
+    width: 99%;
+    height: 99%;
+    }
 }
