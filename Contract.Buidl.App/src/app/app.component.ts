@@ -16,9 +16,10 @@ export class AppComponent implements OnInit {
   walletConnected:boolean = false;
   launchedApp: boolean = false;
   chain: any = "";
-  chains = [{name: "tron"},{name: "aurora"}]
+  chains = [{name: "tron"},{name: "aurora"},{name: "evmos"}]
 
   constructor(private deployerService: DeployService, private confirmService: ConfirmationService, private walletService: WalletService){
+    deployerService.wakeupCompileServer();
   }
 
   ngOnInit(){
@@ -42,7 +43,7 @@ export class AppComponent implements OnInit {
           this.confirmService.confirm({
             key: "invalidConnection",
             header: "Could not connect to wallet!",
-            message: "D3 IDE could not connect to an active wallet, you not be able to deploy a smart contract. Please ensure that you have correctly selected your intended chain, installed and logged into Metamask (Aurora) or Tronlink (Tron) then retry.",
+            message: "D3 IDE could not connect to an active wallet, you not be able to deploy a smart contract. Please ensure that you have correctly selected your intended chain, installed and logged into Metamask (Aurora/Evmos) or Tronlink (Tron) then retry.",
             rejectVisible: false,
             acceptLabel: "Retry",
             acceptIcon: PrimeIcons.REPLAY,

@@ -143,6 +143,7 @@ export class CreateSolidityFileComponent implements OnInit {
         let response: any = data;
         this.spinnerMsg = "Compiled";
         if ("errors" in response){
+          alert(JSON.stringify(response["errors"]))
           this.displaySpinner = false;
           this.confirmationService.confirm({
             header: "Error",
@@ -156,6 +157,7 @@ export class CreateSolidityFileComponent implements OnInit {
           let bytecode = response["bytecode"];
           this.spinnerMsg = "Deploying Contract to chain..."
           const deployResponse = this.deploymentService.deployContract(abi, bytecode);
+          this.displaySpinner = false;
           this.confirmationService.confirm({
             header: "Deployed",
             message: JSON.stringify(deployResponse),

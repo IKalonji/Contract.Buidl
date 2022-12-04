@@ -13,6 +13,10 @@ export class AppService {
     return 'Hello World!';
   }
 
+  wakeServer() {
+    return {result: "Ok"}
+  }
+
   getCompileContract(contractDTO: ComplieContractDTO) {
 
     var contractOptions = {

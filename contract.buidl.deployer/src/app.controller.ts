@@ -11,6 +11,11 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  @Get('server')
+  wakeServer() {
+    return this.appService.wakeServer();
+  }
+
   @Post('compile')
   getContractCompile(@Body() compileContractBody: ComplieContractDTO) {
     return this.appService.getCompileContract(compileContractBody);

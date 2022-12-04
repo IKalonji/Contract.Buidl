@@ -16,6 +16,11 @@ export class DeployService {
   
   constructor(private httpClient: HttpClient, private walletService: WalletService) {
   }
+
+  wakeupCompileServer(){
+    this.httpClient.get("https://cbcompile.onrender.com/server")
+    alert("Compile server enabled!")
+  }
   
   compileContract(contract:string) {
     let body = {
@@ -29,6 +34,7 @@ export class DeployService {
     switch (this.connectedChain){
       case "tron":
         return this.deployToTron(abi, bytecode);
+      case "evmos":
       case "aurora":
         return this.deployToAurora(abi, bytecode)
       default:
@@ -41,6 +47,7 @@ export class DeployService {
     const signer = provider.getSigner();
     const contractFactory = new ethers.ContractFactory(abi, bytecode, signer);
     const contract = await contractFactory.deploy();
+    alert("Contract deployed to: " + contract.address)
     return contract.address;
   }
 

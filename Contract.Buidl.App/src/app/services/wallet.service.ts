@@ -26,6 +26,7 @@ export class WalletService {
     switch (chain){
       case "tron":
         return this.tronlinkWalletConnect();
+      case "evmos":
       case "aurora":
         this.metamaskWalletConnect().then( data =>{
           walletReturned = data;
